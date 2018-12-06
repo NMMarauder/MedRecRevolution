@@ -92,7 +92,8 @@
             txtNumTexts.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(11).Text
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            WriteToLog("frmEdit_Load on frmEditAppt - Exception Follows: " & ex.Message)
+            'MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -234,7 +235,8 @@
             End If
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            WriteToLog(" btnSave_Click on frmEditAppt - Exception Follows: " & ex.Message)
+            ' MessageBox.Show(ex.Message)
         End Try
     End Sub
 

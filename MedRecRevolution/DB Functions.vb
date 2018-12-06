@@ -36,9 +36,8 @@ Module DB_Functions
             con = Nothing
 
         Catch ex As Exception
-            'WriteToLog("Insert_into_ApptTable - Exception Follows:")
-            'WriteToLog(CStr(ex.Message))
-            MessageBox.Show("Insert_into_ApptTable - Exception Follows:" & ex.Message)
+            WriteToLog("Insert_into_ApptTable - Exception Follows:" & ex.Message)
+            'MessageBox.Show("Insert_into_ApptTable - Exception Follows:" & ex.Message)
         End Try
 
         stopWatch.Stop()
@@ -101,9 +100,8 @@ Module DB_Functions
             con = Nothing
 
         Catch ex As Exception
-            ' WriteToLog("UpdateAppt - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
-            MessageBox.Show("UpdateAppt - Exception Follows:" & ex.Message)
+            WriteToLog("UpdateAppt - Exception Follows: " & ex.Message)
+            ' MessageBox.Show("UpdateAppt - Exception Follows:" & ex.Message)
         End Try
 
         stopWatch.Stop()
@@ -139,9 +137,8 @@ Module DB_Functions
             con.Close()
 
         Catch ex As Exception
-            ' WriteToLog("Delete Reminder - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
-            MessageBox.Show("Delete Reminder - Exception Follows:" & ex.Message)
+            WriteToLog("Delete Reminder - Exception Follows:" & ex.Message)
+            ' MessageBox.Show("Delete Reminder - Exception Follows:" & ex.Message)
         End Try
 
         stopWatch.Stop()
@@ -211,9 +208,8 @@ Module DB_Functions
             con = Nothing
 
         Catch ex As Exception
-            MessageBox.Show("InsertOutcomesTable - Exception Follows:" & ex.Message)
-            'WriteToLog("InsertOutcomesTable - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
+            'MessageBox.Show("InsertOutcomesTable - Exception Follows:" & ex.Message)
+            WriteToLog("InsertOutcomesTable - Exception Follows:" & ex.Message)
         End Try
 
         stopWatch.Stop()
@@ -270,9 +266,8 @@ Module DB_Functions
             con = Nothing
 
         Catch ex As Exception
-            ' WriteToLog("UpdateAppt - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
-            MessageBox.Show("UpdateAppt - Exception Follows:" & ex.Message)
+            WriteToLog("UpdateAppt - Exception Follows:" & ex.Message)
+            ' MessageBox.Show("UpdateAppt - Exception Follows:" & ex.Message)
         End Try
 
         stopWatch.Stop()

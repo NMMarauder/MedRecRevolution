@@ -21,12 +21,11 @@ Module Twilio
                     body:=sms_msg)
 
             Console.WriteLine(message.Sid)
-            'WriteToLog("Text Sent to: " & sms_number)
+            WriteToLog("Text Sent to: " & sms_number)
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            'WriteToLog("Text Twilio - Exception Follows:")
-            'WriteToLog(CStr(ex.Message))
+            'MessageBox.Show(ex.Message)
+            WriteToLog("Text Twilio - Exception Follows: " & ex.Message)
 
         End Try
 

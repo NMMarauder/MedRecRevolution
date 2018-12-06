@@ -103,7 +103,7 @@ Public Class frmMain
             If System.DateTime.Now.Minute Mod 2 = 0 And System.DateTime.Now.Second = 0 Then
                 Notify_Grp_1_missed()
                 Notify_Grp_1()
-                ' PostTo2("code_word=flash&time=" & CurrTime)
+                PostTo2("code_word=flash&time=" & CurrTime)
             End If
         End If
 
@@ -218,9 +218,8 @@ Public Class frmMain
             connection.Close()
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            'WriteToLog("LoadOutcomeStructFromDB - Exception Follows:")
-            'WriteToLog(CStr(ex.Message))
+            'MessageBox.Show(ex.Message)
+            WriteToLog("LoadOutcomeStructFromDB - Exception Follows:" & ex.Message)
         End Try
 
         stopWatch.Stop()
@@ -309,9 +308,8 @@ Public Class frmMain
             End If
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            ' WriteToLog("LoadOutComeListFromDB - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
+            ' MessageBox.Show(ex.Message)
+            WriteToLog("LoadOutComeListFromDB - Exception Follows: " & ex.Message)
         End Try
 
         'lvwOutcome.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
@@ -381,9 +379,8 @@ Public Class frmMain
             connection.Close()
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            'WriteToLog("LoadApptStructFromDB - Exception Follows:")
-            'WriteToLog(CStr(ex.Message))
+            ' MessageBox.Show(ex.Message)
+            WriteToLog("LoadApptStructFromDB - Exception Follows: " & ex.Message)
         End Try
 
         stopWatch.Stop()
@@ -441,9 +438,8 @@ Public Class frmMain
             End If
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            ' WriteToLog("LoadApptList - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
+            ' MessageBox.Show(ex.Message)
+            WriteToLog("LoadApptList - Exception Follows: " & ex.Message)
         End Try
 
         'lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
@@ -652,7 +648,11 @@ Public Class frmMain
                     newitem.SubItems.Add(sday)          '7
                     newitem.SubItems.Add(rday1)         '8
                     newitem.SubItems.Add(rtime1)        '9
-                    newitem.SubItems.Add(lasttxt)       '10
+                    If EventHappened = 0 Then
+                        newitem.SubItems.Add("")
+                    Else
+                        newitem.SubItems.Add(lasttxt)       '10
+                    End If
                     newitem.SubItems.Add(CStr(numtxts)) '11
                     newitem.SubItems.Add("") ' actual rec date
                     'newitem.SubItems.Add(EventHappened) 'Happened - set to staff issue by default
@@ -709,10 +709,8 @@ Public Class frmMain
 
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            ' WriteToLog("Notify Group One Missed - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
-
+            'MessageBox.Show(ex.Message)
+            WriteToLog("Notify Group One Missed - Exception Follows: " & ex.Message)
         End Try
 
         If data_reader IsNot Nothing Then
@@ -811,7 +809,11 @@ Public Class frmMain
                     newitem.SubItems.Add(sday)          '7
                     newitem.SubItems.Add(rday1)         '8
                     newitem.SubItems.Add(rtime1)        '9
-                    newitem.SubItems.Add(lasttxt)       '10
+                    If EventHappened = 0 Then
+                        newitem.SubItems.Add("")
+                    Else
+                        newitem.SubItems.Add(lasttxt)       '10
+                    End If
                     newitem.SubItems.Add(CStr(numtxts)) '11
                     newitem.SubItems.Add("") ' actual rec date
                     'newitem.SubItems.Add(EventHappened) 'Happened - set to staff issue by default
@@ -868,10 +870,8 @@ Public Class frmMain
 
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
-            ' WriteToLog("Notify Group One Missed - Exception Follows:")
-            ' WriteToLog(CStr(ex.Message))
-
+            ' MessageBox.Show(ex.Message)
+            WriteToLog("Notify Group One - Exception Follows: " & ex.Message)
         End Try
 
         If data_reader IsNot Nothing Then

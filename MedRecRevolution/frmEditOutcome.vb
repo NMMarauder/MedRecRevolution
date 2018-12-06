@@ -125,7 +125,8 @@
             rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            WriteToLog("frmEditOutcome_Load on frmEditOutcome - Exception Follows: " & ex.Message)
+            'MessageBox.Show(ex.Message)
         End Try
 
     End Sub
@@ -214,7 +215,8 @@
             End If
 
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            WriteToLog("btnSave_click on frmEditOutcome - Exception Follows: " & ex.Message)
+            'MessageBox.Show(ex.Message)
         End Try
 
     End Sub

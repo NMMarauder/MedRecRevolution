@@ -217,6 +217,7 @@
 
         Catch ex As Exception
             MessageBox.Show(ex.Message)
+            WriteToLog("btnAdd_Click on frmAdd - Exception Follows: " & ex.Message)
         End Try
 
     End Sub
