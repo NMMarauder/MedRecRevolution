@@ -61,8 +61,10 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        'SoftwareVersion = "Editor"
-        SoftwareVersion = "SERVER"
+        SoftwareVersion = "EDITOR"
+        'SoftwareVersion = "SERVER"
+        lblVersion.Text = SoftwareVersion & " VERSION 2.0"
+
 
 
         Dim CurrTime As String = System.DateTime.Now.ToString("dd MMM yyyy HH:mm:ss")
@@ -72,7 +74,7 @@ Public Class frmMain
         'Update lists every 15 minutes for the editor
         If System.DateTime.Now.Minute Mod 15 = 0 And System.DateTime.Now.Second = 0 Then
             'Don't refresh if they are editing either list
-            If Not (Application.OpenForms().OfType(Of frmEditAppt).Any Or Application.OpenForms().OfType(Of frmEditOutcome).Any) Then
+            If Not (Application.OpenForms().OfType(Of frmEditAppt).Any Or Application.OpenForms().OfType(Of frmEditOutcome).Any Or Application.OpenForms().OfType(Of frmAdd).Any) Then
                 lvwReminder.Items.Clear()
                 LoadApptStructFromDB()
                 LoadApptList(lvwReminder)
@@ -87,10 +89,6 @@ Public Class frmMain
         '*************************************************************************************************
 
         If SoftwareVersion = "SERVER" Then
-            'Give the Server version a different label to easily identify it after compilation
-            lblVersion.Text = SoftwareVersion & " VERSION"
-
-
             'At 1 AM move the group zero (Patients not recieving texts) to the outcomes list
             'If System.DateTime.Now.Hour = 1 And System.DateTime.Now.Minute = 1 And System.DateTime.Now.Second = 1 Then
             ' Notify_Grp_0()
@@ -124,7 +122,8 @@ Public Class frmMain
         lvwReminder.Columns.Add("Last Text At")
         lvwReminder.Columns.Add("# of Texts So Far")
 
-        lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+        'lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
 
         lvwOutcome.Columns.Add("ID")
         lvwOutcome.Columns.Add("First Name")
@@ -154,6 +153,7 @@ Public Class frmMain
         LoadOutcomeList(lvwOutcome)
 
         'lvwOutcome.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
+        lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         lvwOutcome.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
     End Sub

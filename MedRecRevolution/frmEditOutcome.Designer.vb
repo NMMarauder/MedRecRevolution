@@ -385,9 +385,9 @@ Partial Class frmEditOutcome
         Me.lblBrought.AutoSize = True
         Me.lblBrought.Location = New System.Drawing.Point(17, 26)
         Me.lblBrought.Name = "lblBrought"
-        Me.lblBrought.Size = New System.Drawing.Size(183, 13)
+        Me.lblBrought.Size = New System.Drawing.Size(199, 13)
         Me.lblBrought.TabIndex = 76
-        Me.lblBrought.Text = "Number of medication bottles brought"
+        Me.lblBrought.Text = "Number of medications brought in bottles"
         '
         'txtNumMedsBrought
         '

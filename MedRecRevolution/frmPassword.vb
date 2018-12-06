@@ -25,6 +25,7 @@ Public Class FrmPassword
             Dim wrapper As New Simple3Des(strPassword)
 
             Try
+                WriteToLog("Valid Password - Starting")
                 Dim doc As New XmlDocument
                 Dim AppName As String = System.IO.Path.GetFileNameWithoutExtension(Application.ExecutablePath)
                 Dim ApplicationDir = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
