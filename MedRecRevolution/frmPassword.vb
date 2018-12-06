@@ -22,7 +22,6 @@ Public Class FrmPassword
 
         If txtPassword.Text <> "" Then
             Dim strPassword As String = txtPassword.Text
-            strPassword = "Iabditn!" 'ToDo: **********REMOVE FOR PRODUCTION **************************************
             Dim wrapper As New Simple3Des(strPassword)
 
             Try
