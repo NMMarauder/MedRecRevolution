@@ -1,0 +1,21 @@
+<?xml version = "1.0"?>
+
+<settings>
+   <DBPath>P:\RoboText\Test.accdb</DBPath>
+   <DBPassword>NijEf5EUok7yfIuNkX3xOtXdHh4Td+8p</DBPassword>
+   <SID>+W1O8u0Q9ixVzXM7jxG5t/ptfeJqfkDJDIzMrxArIoYeaQoIHnElPCj+G2TNv5u3AGLVRkk6gbqb2j6CvBQtWw1QGOwbZep0</SID>
+   <Token>uKenMKujq0FkXoJOPWipEQVt+6iD1ER5qIH8MwOVaarJMaBeerZVs9jbtVW978ikR1cLpfymHO3imZKo1l0e/DPHfBzMAZRY</Token>
+   <SMS>bkJp91GQlFWX3lnQTlV7D4rIHeZQ0z5ZgbGljLciZfk=</SMS>
+   <URL>1q4CYFtUW63WYykrzMjj9u894vVKvl6O+wIdsawR4OjDTlrI2I2mQVoa6kxFWl5uJJTtmRKqhg07iRN5Bm69Q3nUQ3aX3M7AFlp19DlLBIk30T3im4SIn+EXDeDAbvPgDndKRht8H7e/YY1OMVy5Lq1Kcu3zy1qvnT9RuhGwcrPZXqt0JwYbBRE8mVJUk5nq</URL>
+   <!-- Additional languages must have a LanguageName tag followed by a LanguageText tag -->
+   <LanguageName>English </LanguageName>
+   <LanguageText>This is DCI reminding you to bring a current list of medications, your pill bottles OR pictures of your pill bottles to your next visit. DO NOT REPLY.</LanguageText>
+   <LanguageName>Spanish</LanguageName>
+   <LanguageText>DCI le envia un recordatorio de traer una lista actual ó frascos de todos sus medicamentos.  Ó, sí prefiere, puede usar su telefono para tomar y mostrar portadas de sus medicamentos en clinica. Este mensaje es solo un aviso.  Favor de no responder.</LanguageText>
+   <LanguageName>Chinese</LanguageName>
+   <LanguageText>这是DCI提醒您在下次访问时带上最新的药物清单，药瓶或药瓶的照片。请勿回复"</LanguageText>
+   <!-- Additional clinics can be added with just a clinic tag -->
+   <Clinic>000274-Abq South</Clinic>
+   <Clinic>000313-SW Mesa</Clinic>
+   <Clinic>000025-Albuquerque</Clinic>
+</settings>
