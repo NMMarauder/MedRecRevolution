@@ -160,7 +160,7 @@ Module DB_Functions
                                    num_txts As Integer, actual_rec_date As String,
                                    happened As Integer, phone_prob As String,
                                    num_meds_brought As String,
-                                   num_useful_pics As String, total_pics As String, comment As String, all_claim As String, useful_list As String, clinic As String)
+                                   num_useful_pics As String, total_pics As String, comment As String, all_claim As String, useful_list As String, clinic As String, totalList As String)
 
         Dim stopWatch As New Stopwatch()
         stopWatch.Start()
@@ -174,8 +174,8 @@ Module DB_Functions
             con.ConnectionString = strConnectionString
             con.Open()
 
-            str = "INSERT INTO Outcomes (id, lang,       fname,  lname,  grp,  mnum,  sday,  rday1,  rtime1,  last_txt,  num_txts,  actual_rec_date,  happened,  phone_prob,  num_meds_brought, num_useful_pics,  total_pics,  comment, all_claim,  useful_list,  clinic) VALUES (" &
-                                       "@id, @language, @fname, @lname, @grp, @mnum, @sday, @rday1, @rtime1, @last_txt, @num_txts, @actual_rec_date, @happened, @phone_prob, @num_meds_brought,@num_useful_pics, @total_pics, @comment, @allclaim,  @usefulList, @clinic);"
+            str = "INSERT INTO Outcomes (id, lang,       fname,  lname,  grp,  mnum,  sday,  rday1,  rtime1,  last_txt,  num_txts,  actual_rec_date,  happened,  phone_prob,  num_meds_brought, num_useful_pics,  total_pics,  comment, all_claim,  useful_list,  clinic, total_list) VALUES (" &
+                                       "@id, @language, @fname, @lname, @grp, @mnum, @sday, @rday1, @rtime1, @last_txt, @num_txts, @actual_rec_date, @happened, @phone_prob, @num_meds_brought,@num_useful_pics, @total_pics, @comment, @allclaim,  @usefulList, @clinic, @totallist);"
 
             cmdInsert.CommandText = str
             cmdInsert.Parameters.Add("@id", OleDbType.VarChar).Value = id
@@ -199,6 +199,7 @@ Module DB_Functions
             cmdInsert.Parameters.Add("@allclaim", OleDbType.VarChar).Value = all_claim
             cmdInsert.Parameters.Add("@usefulList", OleDbType.VarChar).Value = useful_list
             cmdInsert.Parameters.Add("@clinic", OleDbType.VarChar).Value = clinic
+            cmdInsert.Parameters.Add("@totallist", OleDbType.VarChar).Value = totalList
 
             cmdInsert.CommandType = CommandType.Text
             cmdInsert.Connection = con
@@ -225,7 +226,7 @@ Module DB_Functions
 
 
     Public Sub UpdateOutcome(ID As String, sday As String, rday As String, happened As Integer, techProb As Integer, medsBrought As Integer,
-                             picsBrought As Integer, totalPics As Integer, comment As String, allClaim As Integer, useFulList As Integer)
+                             picsBrought As Integer, totalPics As Integer, comment As String, allClaim As Integer, useFulList As Integer, totallist As Integer)
 
         Dim stopWatch As New Stopwatch()
         stopWatch.Start()
@@ -242,7 +243,7 @@ Module DB_Functions
 
             Dim str As String = "UPDATE Outcomes SET " &
                 "actual_rec_date =@rday, happened =@happened, phone_prob = @techProb, num_meds_brought = @medsBrought, num_useful_pics = @picsBrought, total_pics = @totalPics, comment =@comment, " &
-                "all_claim =@allClaim, useful_list =@useFulList WHERE (ID = @ID AND sday =@sday);"
+                "all_claim =@allClaim, useful_list =@useFulList, total_list =@totalList WHERE (ID = @ID AND sday =@sday);"
             cmdUpdate.CommandText = str
 
             cmdUpdate.Parameters.Add("@rday", OleDbType.VarChar).Value = rday
@@ -254,6 +255,7 @@ Module DB_Functions
             cmdUpdate.Parameters.Add("@comment", OleDbType.VarChar).Value = comment
             cmdUpdate.Parameters.Add("@allClaim", OleDbType.VarChar).Value = allClaim
             cmdUpdate.Parameters.Add("@useFulList", OleDbType.VarChar).Value = useFulList
+            cmdUpdate.Parameters.Add("@totalList", OleDbType.VarChar).Value = totallist
 
             cmdUpdate.Parameters.Add("@ID", OleDbType.VarChar).Value = ID
             cmdUpdate.Parameters.Add("@sday", OleDbType.VarChar).Value = sday

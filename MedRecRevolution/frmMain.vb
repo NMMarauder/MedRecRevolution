@@ -45,6 +45,7 @@ Public Class frmMain
         Dim UsefulList As Integer
         Dim ClaimsAll As Integer
         Dim Comment As String
+        Dim TotalList As Integer
     End Structure
     Dim Outcomes As Outcome()
 
@@ -61,8 +62,8 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        SoftwareVersion = "EDITOR"
-        'SoftwareVersion = "SERVER"
+        ' SoftwareVersion = "EDITOR"
+        SoftwareVersion = "SERVER"
         lblVersion.Text = SoftwareVersion & " VERSION 2.0"
 
 
@@ -141,7 +142,8 @@ Public Class frmMain
         lvwOutcome.Columns.Add("Happened?")
         lvwOutcome.Columns.Add("Claims All")
         lvwOutcome.Columns.Add("# Meds Brought")
-        lvwOutcome.Columns.Add("Useful_list")
+        lvwOutcome.Columns.Add("# Useful list")
+        lvwOutcome.Columns.Add("Total list")
         lvwOutcome.Columns.Add("# Useful Pics")
         lvwOutcome.Columns.Add("Total Pics")
         lvwOutcome.Columns.Add("Phone Problem")
@@ -211,6 +213,7 @@ Public Class frmMain
                     If data_reader.GetValue(19).ToString <> "" Then Outcomes(count).ClaimsAll = CInt(data_reader.GetValue(19))      'Claims All
                     If data_reader.GetValue(20).ToString <> "" Then Outcomes(count).UsefulList = CInt(data_reader.GetValue(20))     'Useful list
                     If data_reader.GetValue(21).ToString <> "" Then Outcomes(count).Clinic = CStr(data_reader.GetValue(21))         'Clinic
+                    If data_reader.GetValue(22).ToString <> "" Then Outcomes(count).TotalList = CInt(data_reader.GetValue(22))       'Total List
                     count = count + 1
                 End While
             End If
@@ -297,6 +300,7 @@ Public Class frmMain
                     newitem.SubItems.Add(Outcomes(count).ClaimsAll)     'Claims All
                     newitem.SubItems.Add(Outcomes(count).NumMeds)       'Num Meds
                     newitem.SubItems.Add(Outcomes(count).UsefulList)    'Useful list
+                    newitem.SubItems.Add(Outcomes(count).TotalList)     'Total list
                     newitem.SubItems.Add(Outcomes(count).NumUsefulPics) 'Num Useful Pics
                     newitem.SubItems.Add(Outcomes(count).TotalPics)     'Total Pics
                     newitem.SubItems.Add(Outcomes(count).PhoneProblem)  'Phone Problem
@@ -679,6 +683,7 @@ Public Class frmMain
                     newitem.SubItems.Add("") 'claims all
                     newitem.SubItems.Add("") 'num meds brought
                     newitem.SubItems.Add("") 'num useful list
+                    newitem.SubItems.Add("") 'total list
                     newitem.SubItems.Add("") 'num useful pics
                     newitem.SubItems.Add("") 'total pics
                     newitem.SubItems.Add("") 'phone prob
@@ -686,7 +691,7 @@ Public Class frmMain
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic)
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "")
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
@@ -840,6 +845,7 @@ Public Class frmMain
                     newitem.SubItems.Add("") 'claims all
                     newitem.SubItems.Add("") 'num meds brought
                     newitem.SubItems.Add("") 'num useful list
+                    newitem.SubItems.Add("") 'Total list
                     newitem.SubItems.Add("") 'num useful pics
                     newitem.SubItems.Add("") 'total pics
                     newitem.SubItems.Add("") 'phone prob
@@ -847,7 +853,7 @@ Public Class frmMain
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic)
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "")
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items

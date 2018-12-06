@@ -119,10 +119,11 @@
             If frmMain.lvwOutcome.SelectedItems(0).SubItems(14).Text = "1" Then chkAll.Checked = True
             txtNumMedsBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(15).Text
             txtUsefulList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(16).Text
-            txtNumPhotosBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(17).Text
-            txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(18).Text
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text = "1" Then chkTech.Checked = True
-            rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text
+            txtTotalList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(17).Text
+            txtNumPhotosBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(18).Text
+            txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text = "1" Then chkTech.Checked = True
+            rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(21).Text
 
         Catch ex As Exception
             WriteToLog("frmEditOutcome_Load on frmEditOutcome - Exception Follows: " & ex.Message)
@@ -198,9 +199,19 @@
                     useFulList = CInt(txtUsefulList.Text)
                 End If
 
+                Dim TotalList As Integer
+                If txtTotalList.Text <> "" Then
+                    TotalList = CInt(txtTotalList.Text)
+                End If
+
+                If TotalList < useFulList Then
+                    answer = MsgBox("Number of USEFUL listed medications cannot be less than the total listed medications", vbOK)
+                    updateReady = False
+                End If
+
                 'Update outcome table in DB  - Where ID & scheduled date matches   
                 If updateReady Then
-                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList)
+                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList)
 
                     'Update outcomes list
                     frmMain.lvwOutcome.Items.Clear()
@@ -254,6 +265,7 @@
         rtComment.ResetText()
         cboLanguage.SelectedIndex = -1
         txtUsefulList.ResetText()
+        txtTotalList.ResetText()
 
         Return True
 
