@@ -48,6 +48,8 @@ Partial Class frmEditAppt
         Me.Label3 = New System.Windows.Forms.Label()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtMRN = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'lblLanguage
@@ -211,7 +213,7 @@ Partial Class frmEditAppt
         'txtLastText
         '
         Me.txtLastText.Enabled = False
-        Me.txtLastText.Location = New System.Drawing.Point(28, 84)
+        Me.txtLastText.Location = New System.Drawing.Point(968, 89)
         Me.txtLastText.Name = "txtLastText"
         Me.txtLastText.Size = New System.Drawing.Size(128, 20)
         Me.txtLastText.TabIndex = 37
@@ -219,7 +221,7 @@ Partial Class frmEditAppt
         'txtNumTexts
         '
         Me.txtNumTexts.Enabled = False
-        Me.txtNumTexts.Location = New System.Drawing.Point(180, 84)
+        Me.txtNumTexts.Location = New System.Drawing.Point(1120, 89)
         Me.txtNumTexts.Name = "txtNumTexts"
         Me.txtNumTexts.Size = New System.Drawing.Size(78, 20)
         Me.txtNumTexts.TabIndex = 38
@@ -236,7 +238,7 @@ Partial Class frmEditAppt
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(25, 68)
+        Me.Label2.Location = New System.Drawing.Point(965, 73)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(89, 13)
         Me.Label2.TabIndex = 40
@@ -245,7 +247,7 @@ Partial Class frmEditAppt
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(177, 68)
+        Me.Label3.Location = New System.Drawing.Point(1117, 73)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 41
@@ -269,11 +271,29 @@ Partial Class frmEditAppt
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(88, 73)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(32, 13)
+        Me.Label4.TabIndex = 43
+        Me.Label4.Text = "MRN"
+        '
+        'txtMRN
+        '
+        Me.txtMRN.Location = New System.Drawing.Point(91, 89)
+        Me.txtMRN.Name = "txtMRN"
+        Me.txtMRN.Size = New System.Drawing.Size(90, 20)
+        Me.txtMRN.TabIndex = 42
+        '
         'frmEditAppt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1215, 178)
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.txtMRN)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnSave)
         Me.Controls.Add(Me.Label3)
@@ -335,4 +355,6 @@ Partial Class frmEditAppt
     Friend WithEvents Label3 As Label
     Friend WithEvents btnSave As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents txtMRN As TextBox
 End Class

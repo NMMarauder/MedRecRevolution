@@ -81,6 +81,7 @@
         cboLanguage.SelectedIndex = -1
         cboLanguage.Text = ""
         cboLanguage.SelectedItem = ""
+        txtMRN.ResetText()
         Return True
 
     End Function
@@ -195,12 +196,20 @@
                 End If
             End If
 
+            Dim MRN As String = txtMRN.Text
+            If Trim(MRN) = "" Then
+                Dim answer As Integer = MsgBox("The MRN is blank.  Would you like to leave it blank for now?", vbYesNo)
+                If answer = vbNo Then
+                    msg = msg & "You must enter a MRN before proceeding" & Environment.NewLine
+                End If
+            End If
+
             'Check for duplicate in the appointment list
             If msg = "" Then
                 IsDuplicate(mnum, fname, lname, group, DupeFound, frmMain.lvwReminder)
                 If DupeFound = 0 Then
                     'C & D - Push data to database and reload the list
-                    Insert_into_ApptTable(fname, lname, group, mnum, language, sday, rday, rtime, FrmPassword.txtDBPath.Text, Clinic)
+                    Insert_into_ApptTable(fname, lname, group, mnum, language, sday, rday, rtime, FrmPassword.txtDBPath.Text, Clinic, MRN)
                     frmMain.lvwReminder.Items.Clear()
                     frmMain.LoadApptStructFromDB()
                     frmMain.LoadApptList(frmMain.lvwReminder)

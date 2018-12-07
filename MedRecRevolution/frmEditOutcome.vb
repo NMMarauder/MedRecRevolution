@@ -92,6 +92,7 @@
             txtLastText.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(10).Text
             txtNumTexts.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(11).Text
 
+
             'Date reconcile happened
             dtReconcile.CustomFormat = "dd MMM yyyy"
             dtReconcile.Format = DateTimePickerFormat.Custom
@@ -124,6 +125,7 @@
             txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text
             If frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text = "1" Then chkTech.Checked = True
             rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(21).Text
+            txtMRN.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(22).Text
 
         Catch ex As Exception
             WriteToLog("frmEditOutcome_Load on frmEditOutcome - Exception Follows: " & ex.Message)
@@ -209,9 +211,17 @@
                     updateReady = False
                 End If
 
+                Dim MRN As String = txtMRN.Text
+                If Trim(MRN) = "" Then
+                    answer = MsgBox("The MRN is blank.  Would you like to leave it blank for now?", vbYesNo)
+                    If answer = vbNo Then
+                        updateReady = False
+                    End If
+                End If
+
                 'Update outcome table in DB  - Where ID & scheduled date matches   
                 If updateReady Then
-                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList)
+                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList, MRN)
 
                     'Update outcomes list
                     frmMain.lvwOutcome.Items.Clear()

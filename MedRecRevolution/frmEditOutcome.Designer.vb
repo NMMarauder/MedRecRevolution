@@ -61,14 +61,16 @@ Partial Class frmEditOutcome
         Me.txtNumMedsBrought = New System.Windows.Forms.TextBox()
         Me.btnClear = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblTotalListed = New System.Windows.Forms.Label()
+        Me.txtTotalList = New System.Windows.Forms.TextBox()
         Me.chkAll = New System.Windows.Forms.CheckBox()
         Me.rtComment = New System.Windows.Forms.RichTextBox()
         Me.cboHappened = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.dtReconcile = New System.Windows.Forms.DateTimePicker()
-        Me.lblTotalListed = New System.Windows.Forms.Label()
-        Me.txtTotalList = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtMRN = New System.Windows.Forms.TextBox()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
@@ -422,6 +424,22 @@ Partial Class frmEditOutcome
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Patient Brought Bottles or List"
         '
+        'lblTotalListed
+        '
+        Me.lblTotalListed.AutoSize = True
+        Me.lblTotalListed.Location = New System.Drawing.Point(17, 88)
+        Me.lblTotalListed.Name = "lblTotalListed"
+        Me.lblTotalListed.Size = New System.Drawing.Size(117, 13)
+        Me.lblTotalListed.TabIndex = 80
+        Me.lblTotalListed.Text = "Total listed medications"
+        '
+        'txtTotalList
+        '
+        Me.txtTotalList.Location = New System.Drawing.Point(227, 88)
+        Me.txtTotalList.Name = "txtTotalList"
+        Me.txtTotalList.Size = New System.Drawing.Size(47, 20)
+        Me.txtTotalList.TabIndex = 79
+        '
         'chkAll
         '
         Me.chkAll.AutoSize = True
@@ -477,27 +495,29 @@ Partial Class frmEditOutcome
         Me.dtReconcile.Size = New System.Drawing.Size(179, 20)
         Me.dtReconcile.TabIndex = 115
         '
-        'lblTotalListed
+        'Label6
         '
-        Me.lblTotalListed.AutoSize = True
-        Me.lblTotalListed.Location = New System.Drawing.Point(17, 88)
-        Me.lblTotalListed.Name = "lblTotalListed"
-        Me.lblTotalListed.Size = New System.Drawing.Size(117, 13)
-        Me.lblTotalListed.TabIndex = 80
-        Me.lblTotalListed.Text = "Total listed medications"
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(642, 49)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(32, 13)
+        Me.Label6.TabIndex = 125
+        Me.Label6.Text = "MRN"
         '
-        'txtTotalList
+        'txtMRN
         '
-        Me.txtTotalList.Location = New System.Drawing.Point(227, 88)
-        Me.txtTotalList.Name = "txtTotalList"
-        Me.txtTotalList.Size = New System.Drawing.Size(47, 20)
-        Me.txtTotalList.TabIndex = 79
+        Me.txtMRN.Location = New System.Drawing.Point(645, 65)
+        Me.txtMRN.Name = "txtMRN"
+        Me.txtMRN.Size = New System.Drawing.Size(78, 20)
+        Me.txtMRN.TabIndex = 124
         '
         'frmEditOutcome
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(845, 672)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txtMRN)
         Me.Controls.Add(Me.lblComment)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.btnClear)
@@ -594,4 +614,6 @@ Partial Class frmEditOutcome
     Friend WithEvents dtReconcile As DateTimePicker
     Friend WithEvents lblTotalListed As Label
     Friend WithEvents txtTotalList As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents txtMRN As TextBox
 End Class

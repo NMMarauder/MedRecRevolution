@@ -105,7 +105,6 @@ Partial Class FrmPassword
         '
         'txtURL
         '
-        Me.txtURL.Enabled = False
         Me.txtURL.Location = New System.Drawing.Point(149, 90)
         Me.txtURL.Name = "txtURL"
         Me.txtURL.Size = New System.Drawing.Size(114, 20)
@@ -139,7 +138,7 @@ Partial Class FrmPassword
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(258, 74)
+        Me.ClientSize = New System.Drawing.Size(253, 78)
         Me.Controls.Add(Me.cboClinics)
         Me.Controls.Add(Me.cboLanguageText)
         Me.Controls.Add(Me.cboLanguageName)

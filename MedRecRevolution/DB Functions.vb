@@ -4,7 +4,7 @@ Module DB_Functions
     Public Sub Add_to_Appt_Struct()
 
     End Sub
-    Public Sub Insert_into_ApptTable(ByVal fname As String, ByVal lname As String, ByVal group As Integer, ByVal mnum As String, ByVal language As String, ByVal sday As String, ByVal rday As String, ByVal rtime As String, file_Path As String, clinic As String)
+    Public Sub Insert_into_ApptTable(ByVal fname As String, ByVal lname As String, ByVal group As Integer, ByVal mnum As String, ByVal language As String, ByVal sday As String, ByVal rday As String, ByVal rtime As String, file_Path As String, clinic As String, MRN As String)
 
         Dim stopWatch As New Stopwatch()
         stopWatch.Start()
@@ -17,7 +17,7 @@ Module DB_Functions
             con.ConnectionString = strConnectionString
             con.Open()
 
-            cmdInsert.CommandText = "INSERT INTO Appts (FName, LName, Grp, mnum, lang, sday, rday1, rtime1, clinic ) VALUES (@fname,@lname,@group,@mnum,@language,@sday,@rday,@rtime,@clinic)"
+            cmdInsert.CommandText = "INSERT INTO Appts (FName, LName, Grp, mnum, lang, sday, rday1, rtime1, clinic, MRN ) VALUES (@fname,@lname,@group,@mnum,@language,@sday,@rday,@rtime,@clinic, @MRN)"
             cmdInsert.Parameters.Add("@fname", OleDbType.VarChar).Value = fname
             cmdInsert.Parameters.Add("@lname", OleDbType.VarChar).Value = lname
             cmdInsert.Parameters.Add("@group", OleDbType.VarChar).Value = group
@@ -27,6 +27,7 @@ Module DB_Functions
             cmdInsert.Parameters.Add("@rday", OleDbType.VarChar).Value = rday
             cmdInsert.Parameters.Add("@rtime", OleDbType.VarChar).Value = rtime
             cmdInsert.Parameters.Add("@clinic", OleDbType.VarChar).Value = clinic
+            cmdInsert.Parameters.Add("@MRN", OleDbType.VarChar).Value = MRN
 
             cmdInsert.CommandType = CommandType.Text
             cmdInsert.Connection = con
@@ -51,7 +52,7 @@ Module DB_Functions
 
     End Sub
 
-    Public Sub UpdateAppt(ID As Integer, fname As String, lname As String, group As Integer, mnum As String, language As String, sday As String, rday As String, rtime As String, lasttxt As String, txtnum As Integer, clinic As String)
+    Public Sub UpdateAppt(ID As Integer, fname As String, lname As String, group As Integer, mnum As String, language As String, sday As String, rday As String, rtime As String, lasttxt As String, txtnum As Integer, clinic As String, MRN As String)
 
         Dim stopWatch As New Stopwatch()
         stopWatch.Start()
@@ -77,7 +78,8 @@ Module DB_Functions
                 " rtime1 = @rtime," &
                 " lasttxt = @lasttxt," &
                 " numtxts = @txtnum," &
-                " clinic = @clinic" &
+                " clinic = @clinic," &
+                " MRN = @MRN " &
                 " WHERE ID = @ID;"
             cmdUpdate.Parameters.Add("@fname", OleDbType.VarChar).Value = fname
             cmdUpdate.Parameters.Add("@lname", OleDbType.VarChar).Value = lname
@@ -90,6 +92,7 @@ Module DB_Functions
             cmdUpdate.Parameters.Add("@lasttxt", OleDbType.VarChar).Value = lasttxt
             cmdUpdate.Parameters.Add("@txtnum", OleDbType.VarChar).Value = txtnum
             cmdUpdate.Parameters.Add("@clinic", OleDbType.VarChar).Value = clinic
+            cmdUpdate.Parameters.Add("@MRN", OleDbType.VarChar).Value = MRN
             cmdUpdate.Parameters.Add("@ID", OleDbType.VarChar).Value = ID
 
             cmdUpdate.CommandType = CommandType.Text
@@ -160,7 +163,7 @@ Module DB_Functions
                                    num_txts As Integer, actual_rec_date As String,
                                    happened As Integer, phone_prob As String,
                                    num_meds_brought As String,
-                                   num_useful_pics As String, total_pics As String, comment As String, all_claim As String, useful_list As String, clinic As String, totalList As String)
+                                   num_useful_pics As String, total_pics As String, comment As String, all_claim As String, useful_list As String, clinic As String, totalList As String, MRN As String)
 
         Dim stopWatch As New Stopwatch()
         stopWatch.Start()
@@ -174,8 +177,8 @@ Module DB_Functions
             con.ConnectionString = strConnectionString
             con.Open()
 
-            str = "INSERT INTO Outcomes (id, lang,       fname,  lname,  grp,  mnum,  sday,  rday1,  rtime1,  last_txt,  num_txts,  actual_rec_date,  happened,  phone_prob,  num_meds_brought, num_useful_pics,  total_pics,  comment, all_claim,  useful_list,  clinic, total_list) VALUES (" &
-                                       "@id, @language, @fname, @lname, @grp, @mnum, @sday, @rday1, @rtime1, @last_txt, @num_txts, @actual_rec_date, @happened, @phone_prob, @num_meds_brought,@num_useful_pics, @total_pics, @comment, @allclaim,  @usefulList, @clinic, @totallist);"
+            str = "INSERT INTO Outcomes (id, lang,       fname,  lname,  grp,  mnum,  sday,  rday1,  rtime1,  last_txt,  num_txts,  actual_rec_date,  happened,  phone_prob,  num_meds_brought, num_useful_pics,  total_pics,  comment, all_claim,  useful_list,  clinic, total_list, MRN) VALUES (" &
+                                       "@id, @language, @fname, @lname, @grp, @mnum, @sday, @rday1, @rtime1, @last_txt, @num_txts, @actual_rec_date, @happened, @phone_prob, @num_meds_brought,@num_useful_pics, @total_pics, @comment, @allclaim,  @usefulList, @clinic, @totallist, @MRN);"
 
             cmdInsert.CommandText = str
             cmdInsert.Parameters.Add("@id", OleDbType.VarChar).Value = id
@@ -200,6 +203,7 @@ Module DB_Functions
             cmdInsert.Parameters.Add("@usefulList", OleDbType.VarChar).Value = useful_list
             cmdInsert.Parameters.Add("@clinic", OleDbType.VarChar).Value = clinic
             cmdInsert.Parameters.Add("@totallist", OleDbType.VarChar).Value = totalList
+            cmdInsert.Parameters.Add("@MRN", OleDbType.VarChar).Value = MRN
 
             cmdInsert.CommandType = CommandType.Text
             cmdInsert.Connection = con
@@ -226,7 +230,7 @@ Module DB_Functions
 
 
     Public Sub UpdateOutcome(ID As String, sday As String, rday As String, happened As Integer, techProb As Integer, medsBrought As Integer,
-                             picsBrought As Integer, totalPics As Integer, comment As String, allClaim As Integer, useFulList As Integer, totallist As Integer)
+                             picsBrought As Integer, totalPics As Integer, comment As String, allClaim As Integer, useFulList As Integer, totallist As Integer, MRN As String)
 
         Dim stopWatch As New Stopwatch()
         stopWatch.Start()
@@ -243,7 +247,7 @@ Module DB_Functions
 
             Dim str As String = "UPDATE Outcomes SET " &
                 "actual_rec_date =@rday, happened =@happened, phone_prob = @techProb, num_meds_brought = @medsBrought, num_useful_pics = @picsBrought, total_pics = @totalPics, comment =@comment, " &
-                "all_claim =@allClaim, useful_list =@useFulList, total_list =@totalList WHERE (ID = @ID AND sday =@sday);"
+                "all_claim =@allClaim, useful_list =@useFulList, total_list =@totalList, MRN =@MRN WHERE (ID = @ID AND sday =@sday);"
             cmdUpdate.CommandText = str
 
             cmdUpdate.Parameters.Add("@rday", OleDbType.VarChar).Value = rday
@@ -256,6 +260,7 @@ Module DB_Functions
             cmdUpdate.Parameters.Add("@allClaim", OleDbType.VarChar).Value = allClaim
             cmdUpdate.Parameters.Add("@useFulList", OleDbType.VarChar).Value = useFulList
             cmdUpdate.Parameters.Add("@totalList", OleDbType.VarChar).Value = totallist
+            cmdUpdate.Parameters.Add("@MRN", OleDbType.VarChar).Value = MRN
 
             cmdUpdate.Parameters.Add("@ID", OleDbType.VarChar).Value = ID
             cmdUpdate.Parameters.Add("@sday", OleDbType.VarChar).Value = sday

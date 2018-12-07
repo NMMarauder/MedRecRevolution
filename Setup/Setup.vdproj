@@ -182,6 +182,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
             }
         }
         "Release"
@@ -506,15 +514,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:MedRecRevolution"
-        "ProductCode" = "8:{95B73918-3548-49FE-9536-644BE8D3D9F7}"
-        "PackageCode" = "8:{168B1683-088D-403D-8DC6-72927BC3679F}"
+        "ProductCode" = "8:{46076074-461C-438B-AF10-ACB1F88CE7BC}"
+        "PackageCode" = "8:{5A4D247E-0402-4D2D-A164-5358621CDDA9}"
         "UpgradeCode" = "8:{196FB684-1865-4606-8979-99CCF12D6271}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.0"
+        "ProductVersion" = "8:2.2.0"
         "Manufacturer" = "8:Dialysis Clinic, Inc."
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1070,7 +1078,7 @@
             }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_19DD0D307F424FE2BD7791BBF7E0BF12"
             {
-            "SourcePath" = "8:..\\MedRecRevolution\\obj\\Release\\MedRecRevolution.exe"
+            "SourcePath" = "8:..\\MedRecRevolution\\obj\\Debug\\MedRecRevolution.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_78281DEBD80244D6945A3CA34CA399F1"

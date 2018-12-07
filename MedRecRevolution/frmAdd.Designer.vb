@@ -42,6 +42,8 @@ Partial Class frmAdd
         Me.cboLanguage = New System.Windows.Forms.ComboBox()
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
+        Me.txtMRN = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtFirst
@@ -212,11 +214,29 @@ Partial Class frmAdd
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
+        'txtMRN
+        '
+        Me.txtMRN.Location = New System.Drawing.Point(33, 86)
+        Me.txtMRN.Name = "txtMRN"
+        Me.txtMRN.Size = New System.Drawing.Size(90, 20)
+        Me.txtMRN.TabIndex = 18
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(30, 70)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(32, 13)
+        Me.Label1.TabIndex = 19
+        Me.Label1.Text = "MRN"
+        '
         'frmAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1160, 137)
+        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.txtMRN)
         Me.Controls.Add(Me.btnCancel)
         Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.lblLanguage)
@@ -266,4 +286,6 @@ Partial Class frmAdd
     Friend WithEvents cboLanguage As ComboBox
     Friend WithEvents btnAdd As Button
     Friend WithEvents btnCancel As Button
+    Friend WithEvents txtMRN As TextBox
+    Friend WithEvents Label1 As Label
 End Class

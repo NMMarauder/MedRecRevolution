@@ -21,6 +21,7 @@ Public Class frmMain
         Dim ReminderTime As String
         Dim LastText As DateTime
         Dim NumTextsSent As Integer
+        Dim MRN As String
     End Structure
     Dim Appointments As Appointment()
     Structure Outcome
@@ -46,6 +47,7 @@ Public Class frmMain
         Dim ClaimsAll As Integer
         Dim Comment As String
         Dim TotalList As Integer
+        Dim MRN As String
     End Structure
     Dim Outcomes As Outcome()
 
@@ -62,9 +64,9 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        ' SoftwareVersion = "EDITOR"
+        'SoftwareVersion = "EDITOR"
         SoftwareVersion = "SERVER"
-        lblVersion.Text = SoftwareVersion & " VERSION 2.0"
+        lblVersion.Text = SoftwareVersion & " VERSION 2.2"
 
 
 
@@ -122,8 +124,9 @@ Public Class frmMain
         lvwReminder.Columns.Add("Reminder Time")
         lvwReminder.Columns.Add("Last Text At")
         lvwReminder.Columns.Add("# of Texts So Far")
+        lvwReminder.Columns.Add("MRN")
 
-        'lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+        lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
 
         lvwOutcome.Columns.Add("ID")
@@ -148,6 +151,8 @@ Public Class frmMain
         lvwOutcome.Columns.Add("Total Pics")
         lvwOutcome.Columns.Add("Phone Problem")
         lvwOutcome.Columns.Add("Comments")
+        lvwOutcome.Columns.Add("MRN")
+        lvwOutcome.Columns.Add("")
 
         LoadApptStructFromDB()
         LoadApptList(lvwReminder)
@@ -213,7 +218,8 @@ Public Class frmMain
                     If data_reader.GetValue(19).ToString <> "" Then Outcomes(count).ClaimsAll = CInt(data_reader.GetValue(19))      'Claims All
                     If data_reader.GetValue(20).ToString <> "" Then Outcomes(count).UsefulList = CInt(data_reader.GetValue(20))     'Useful list
                     If data_reader.GetValue(21).ToString <> "" Then Outcomes(count).Clinic = CStr(data_reader.GetValue(21))         'Clinic
-                    If data_reader.GetValue(22).ToString <> "" Then Outcomes(count).TotalList = CInt(data_reader.GetValue(22))       'Total List
+                    If data_reader.GetValue(22).ToString <> "" Then Outcomes(count).TotalList = CInt(data_reader.GetValue(22))      'Total List
+                    If data_reader.GetValue(23).ToString <> "" Then Outcomes(count).MRN = CStr(data_reader.GetValue(23))            'MRN
                     count = count + 1
                 End While
             End If
@@ -305,6 +311,7 @@ Public Class frmMain
                     newitem.SubItems.Add(Outcomes(count).TotalPics)     'Total Pics
                     newitem.SubItems.Add(Outcomes(count).PhoneProblem)  'Phone Problem
                     newitem.SubItems.Add(Outcomes(count).Comment)       'Comment
+                    newitem.SubItems.Add(Outcomes(count).MRN)           'MRN
 
                     lvw.Items.Add(newitem)
                     count = count + 1
@@ -376,6 +383,7 @@ Public Class frmMain
                     End If
                     If data_reader.GetValue(10).ToString <> "" Then Appointments(count).NumTextsSent = CInt(data_reader.GetValue(10))   'NumTextsSent
                     If data_reader.GetValue(11).ToString <> "" Then Appointments(count).Clinic = CStr(data_reader.GetValue(11))         'Clinic
+                    If data_reader.GetValue(12).ToString <> "" Then Appointments(count).MRN = CStr(data_reader.GetValue(12))            'MRN
                     count = count + 1
                 End While
             End If
@@ -436,6 +444,7 @@ Public Class frmMain
                         newitem.SubItems.Add(Appointments(count).LastText)    'Last Text
                     End If
                     newitem.SubItems.Add(Appointments(count).NumTextsSent) 'NumTextsSent
+                    newitem.SubItems.Add(Appointments(count).MRN)           'MRN
                     lvw.Items.Add(newitem)
                     count = count + 1
                 End While
@@ -604,6 +613,7 @@ Public Class frmMain
                     Dim rtime1 As String = data_reader.GetValue(8) & ""
                     Dim lasttxt As String = data_reader.GetValue(9) & ""
                     Dim clinic As String = data_reader.GetValue(11) & ""
+                    Dim MRN As String = data_reader.GetValue(12) & ""
                     Dim numtxts As Integer = 0
                     Dim sms_msg As String = "DCI appreciates you"
                     Dim comment As String = ""
@@ -688,10 +698,11 @@ Public Class frmMain
                     newitem.SubItems.Add("") 'total pics
                     newitem.SubItems.Add("") 'phone prob
                     newitem.SubItems.Add(comment) 'comment
+                    newitem.SubItems.Add(MRN) 'MRN
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "")
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN)
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
@@ -708,7 +719,7 @@ Public Class frmMain
                         Twilio_Text(mnum, sms_msg)
                     End If
                     'update Appts DB table - to reflect that the text went out
-                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic)
+                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN)
 
                 End While
 
@@ -766,6 +777,7 @@ Public Class frmMain
                     Dim rtime1 As String = data_reader.GetValue(8) & ""
                     Dim lasttxt As String = data_reader.GetValue(9) & ""
                     Dim clinic As String = data_reader.GetValue(11) & ""
+                    Dim MRN As String = data_reader.GetValue(12) & ""
                     Dim numtxts As Integer = 0
                     Dim sms_msg As String = "DCI appreciates you"
                     Dim comment As String = ""
@@ -850,10 +862,11 @@ Public Class frmMain
                     newitem.SubItems.Add("") 'total pics
                     newitem.SubItems.Add("") 'phone prob
                     newitem.SubItems.Add(comment) 'comment
+                    newitem.SubItems.Add(MRN) 'MRN
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "")
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN)
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
@@ -870,7 +883,7 @@ Public Class frmMain
                         'MsgBox("Text sent to " & fname & " " & lname & " at " & mnum)
                     End If
                     'update Appts DB table - to reflect that the text went out
-                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic)
+                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN)
 
                 End While
 

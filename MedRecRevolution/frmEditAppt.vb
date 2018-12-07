@@ -90,6 +90,7 @@
 
             txtLastText.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(10).Text
             txtNumTexts.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(11).Text
+            txtMRN.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(12).Text
 
         Catch ex As Exception
             WriteToLog("frmEdit_Load on frmEditAppt - Exception Follows: " & ex.Message)
@@ -213,13 +214,21 @@
                 End If
             End If
 
+            Dim MRN As String = txtMRN.Text
+            If Trim(MRN) = "" Then
+                Dim answer As Integer = MsgBox("The MRN is blank.  Would you like to leave it blank for now?", vbYesNo)
+                If answer = vbNo Then
+                    msg = msg & "You must enter a MRN before proceeding" & Environment.NewLine
+                End If
+            End If
+
             If msg = "" Then
                 Dim DupeFound As Integer = 0
                 Dim alertUser As Boolean = False
                 If checkName Or checkPhone Then IsDuplicate(mnum, fname, lname, group, DupeFound, frmMain.lvwReminder)
                 If DupeFound > 0 Then alertUser = True
                 If Not alertUser Then
-                    UpdateAppt(ID, fname, lname, group, mnum, language, sday, rday, rtime, lasttxt, numtxts, clinic)
+                    UpdateAppt(ID, fname, lname, group, mnum, language, sday, rday, rtime, lasttxt, numtxts, Clinic, MRN)
                     frmMain.lvwReminder.Items.Clear()
                     frmMain.LoadApptStructFromDB()
                     frmMain.LoadApptList(frmMain.lvwReminder)
@@ -256,6 +265,7 @@
         txtFirst.ResetText()
         txtLast.ResetText()
         txtMobile.ResetText()
+        txtMRN.ResetText()
         cboRTime.Text = ""
         cboRTime.SelectedItem = ""
         dtScheduled.CustomFormat = " "
