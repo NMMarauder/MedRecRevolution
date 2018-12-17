@@ -50,12 +50,14 @@ Partial Class frmEditAppt
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtMRN = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cboShift = New System.Windows.Forms.ComboBox()
         Me.SuspendLayout()
         '
         'lblLanguage
         '
         Me.lblLanguage.AutoSize = True
-        Me.lblLanguage.Location = New System.Drawing.Point(601, 23)
+        Me.lblLanguage.Location = New System.Drawing.Point(827, 23)
         Me.lblLanguage.Name = "lblLanguage"
         Me.lblLanguage.Size = New System.Drawing.Size(55, 13)
         Me.lblLanguage.TabIndex = 35
@@ -64,15 +66,15 @@ Partial Class frmEditAppt
         'cboLanguage
         '
         Me.cboLanguage.FormattingEnabled = True
-        Me.cboLanguage.Location = New System.Drawing.Point(604, 38)
+        Me.cboLanguage.Location = New System.Drawing.Point(830, 38)
         Me.cboLanguage.Name = "cboLanguage"
         Me.cboLanguage.Size = New System.Drawing.Size(90, 21)
-        Me.cboLanguage.TabIndex = 5
+        Me.cboLanguage.TabIndex = 7
         '
         'lblClinic
         '
         Me.lblClinic.AutoSize = True
-        Me.lblClinic.Location = New System.Drawing.Point(318, 23)
+        Me.lblClinic.Location = New System.Drawing.Point(423, 23)
         Me.lblClinic.Name = "lblClinic"
         Me.lblClinic.Size = New System.Drawing.Size(32, 13)
         Me.lblClinic.TabIndex = 34
@@ -81,15 +83,15 @@ Partial Class frmEditAppt
         'cboClinic
         '
         Me.cboClinic.FormattingEnabled = True
-        Me.cboClinic.Location = New System.Drawing.Point(321, 38)
+        Me.cboClinic.Location = New System.Drawing.Point(426, 38)
         Me.cboClinic.Name = "cboClinic"
         Me.cboClinic.Size = New System.Drawing.Size(137, 21)
-        Me.cboClinic.TabIndex = 3
+        Me.cboClinic.TabIndex = 4
         '
         'lblRTime
         '
         Me.lblRTime.AutoSize = True
-        Me.lblRTime.Location = New System.Drawing.Point(1096, 23)
+        Me.lblRTime.Location = New System.Drawing.Point(307, 73)
         Me.lblRTime.Name = "lblRTime"
         Me.lblRTime.Size = New System.Drawing.Size(78, 13)
         Me.lblRTime.TabIndex = 33
@@ -98,7 +100,7 @@ Partial Class frmEditAppt
         'lblReminder
         '
         Me.lblReminder.AutoSize = True
-        Me.lblReminder.Location = New System.Drawing.Point(965, 23)
+        Me.lblReminder.Location = New System.Drawing.Point(165, 73)
         Me.lblReminder.Name = "lblReminder"
         Me.lblReminder.Size = New System.Drawing.Size(78, 13)
         Me.lblReminder.TabIndex = 32
@@ -107,7 +109,7 @@ Partial Class frmEditAppt
         'lblScheduled
         '
         Me.lblScheduled.AutoSize = True
-        Me.lblScheduled.Location = New System.Drawing.Point(816, 23)
+        Me.lblScheduled.Location = New System.Drawing.Point(27, 73)
         Me.lblScheduled.Name = "lblScheduled"
         Me.lblScheduled.Size = New System.Drawing.Size(109, 13)
         Me.lblScheduled.TabIndex = 31
@@ -116,31 +118,31 @@ Partial Class frmEditAppt
         'cboRTime
         '
         Me.cboRTime.FormattingEnabled = True
-        Me.cboRTime.Location = New System.Drawing.Point(1099, 38)
+        Me.cboRTime.Location = New System.Drawing.Point(308, 88)
         Me.cboRTime.Name = "cboRTime"
         Me.cboRTime.Size = New System.Drawing.Size(90, 21)
-        Me.cboRTime.TabIndex = 9
+        Me.cboRTime.TabIndex = 11
         '
         'dtReminder
         '
         Me.dtReminder.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtReminder.Location = New System.Drawing.Point(968, 39)
+        Me.dtReminder.Location = New System.Drawing.Point(168, 89)
         Me.dtReminder.Name = "dtReminder"
         Me.dtReminder.Size = New System.Drawing.Size(115, 20)
-        Me.dtReminder.TabIndex = 8
+        Me.dtReminder.TabIndex = 10
         '
         'dtScheduled
         '
         Me.dtScheduled.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtScheduled.Location = New System.Drawing.Point(819, 39)
+        Me.dtScheduled.Location = New System.Drawing.Point(30, 89)
         Me.dtScheduled.Name = "dtScheduled"
         Me.dtScheduled.Size = New System.Drawing.Size(123, 20)
-        Me.dtScheduled.TabIndex = 7
+        Me.dtScheduled.TabIndex = 9
         '
         'lblMobile
         '
         Me.lblMobile.AutoSize = True
-        Me.lblMobile.Location = New System.Drawing.Point(708, 23)
+        Me.lblMobile.Location = New System.Drawing.Point(934, 23)
         Me.lblMobile.Name = "lblMobile"
         Me.lblMobile.Size = New System.Drawing.Size(38, 13)
         Me.lblMobile.TabIndex = 28
@@ -149,7 +151,7 @@ Partial Class frmEditAppt
         'lblGroup
         '
         Me.lblGroup.AutoSize = True
-        Me.lblGroup.Location = New System.Drawing.Point(478, 23)
+        Me.lblGroup.Location = New System.Drawing.Point(704, 23)
         Me.lblGroup.Name = "lblGroup"
         Me.lblGroup.Size = New System.Drawing.Size(36, 13)
         Me.lblGroup.TabIndex = 26
@@ -158,7 +160,7 @@ Partial Class frmEditAppt
         'lblLast
         '
         Me.lblLast.AutoSize = True
-        Me.lblLast.Location = New System.Drawing.Point(200, 23)
+        Me.lblLast.Location = New System.Drawing.Point(195, 23)
         Me.lblLast.Name = "lblLast"
         Me.lblLast.Size = New System.Drawing.Size(58, 13)
         Me.lblLast.TabIndex = 24
@@ -176,21 +178,21 @@ Partial Class frmEditAppt
         'cboGroup
         '
         Me.cboGroup.FormattingEnabled = True
-        Me.cboGroup.Location = New System.Drawing.Point(481, 39)
+        Me.cboGroup.Location = New System.Drawing.Point(707, 39)
         Me.cboGroup.Name = "cboGroup"
         Me.cboGroup.Size = New System.Drawing.Size(104, 21)
-        Me.cboGroup.TabIndex = 4
+        Me.cboGroup.TabIndex = 6
         '
         'txtMobile
         '
-        Me.txtMobile.Location = New System.Drawing.Point(711, 39)
+        Me.txtMobile.Location = New System.Drawing.Point(937, 39)
         Me.txtMobile.Name = "txtMobile"
         Me.txtMobile.Size = New System.Drawing.Size(90, 20)
-        Me.txtMobile.TabIndex = 6
+        Me.txtMobile.TabIndex = 8
         '
         'txtLast
         '
-        Me.txtLast.Location = New System.Drawing.Point(203, 39)
+        Me.txtLast.Location = New System.Drawing.Point(198, 39)
         Me.txtLast.Name = "txtLast"
         Me.txtLast.Size = New System.Drawing.Size(99, 20)
         Me.txtLast.TabIndex = 2
@@ -213,18 +215,18 @@ Partial Class frmEditAppt
         'txtLastText
         '
         Me.txtLastText.Enabled = False
-        Me.txtLastText.Location = New System.Drawing.Point(968, 89)
+        Me.txtLastText.Location = New System.Drawing.Point(426, 89)
         Me.txtLastText.Name = "txtLastText"
         Me.txtLastText.Size = New System.Drawing.Size(128, 20)
-        Me.txtLastText.TabIndex = 37
+        Me.txtLastText.TabIndex = 12
         '
         'txtNumTexts
         '
         Me.txtNumTexts.Enabled = False
-        Me.txtNumTexts.Location = New System.Drawing.Point(1120, 89)
+        Me.txtNumTexts.Location = New System.Drawing.Point(578, 89)
         Me.txtNumTexts.Name = "txtNumTexts"
         Me.txtNumTexts.Size = New System.Drawing.Size(78, 20)
-        Me.txtNumTexts.TabIndex = 38
+        Me.txtNumTexts.TabIndex = 13
         '
         'Label1
         '
@@ -238,7 +240,7 @@ Partial Class frmEditAppt
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(965, 73)
+        Me.Label2.Location = New System.Drawing.Point(423, 73)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(89, 13)
         Me.Label2.TabIndex = 40
@@ -247,7 +249,7 @@ Partial Class frmEditAppt
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(1117, 73)
+        Me.Label3.Location = New System.Drawing.Point(575, 73)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 41
@@ -255,26 +257,26 @@ Partial Class frmEditAppt
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(1039, 146)
+        Me.btnSave.Location = New System.Drawing.Point(874, 142)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(73, 24)
-        Me.btnSave.TabIndex = 10
+        Me.btnSave.TabIndex = 14
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(1116, 146)
+        Me.btnCancel.Location = New System.Drawing.Point(951, 142)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(73, 24)
-        Me.btnCancel.TabIndex = 11
+        Me.btnCancel.TabIndex = 15
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(88, 73)
+        Me.Label4.Location = New System.Drawing.Point(312, 22)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(32, 13)
         Me.Label4.TabIndex = 43
@@ -282,16 +284,35 @@ Partial Class frmEditAppt
         '
         'txtMRN
         '
-        Me.txtMRN.Location = New System.Drawing.Point(91, 89)
+        Me.txtMRN.Location = New System.Drawing.Point(315, 38)
         Me.txtMRN.Name = "txtMRN"
         Me.txtMRN.Size = New System.Drawing.Size(90, 20)
-        Me.txtMRN.TabIndex = 42
+        Me.txtMRN.TabIndex = 3
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(577, 22)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(28, 13)
+        Me.Label5.TabIndex = 45
+        Me.Label5.Text = "Shift"
+        '
+        'cboShift
+        '
+        Me.cboShift.FormattingEnabled = True
+        Me.cboShift.Location = New System.Drawing.Point(580, 38)
+        Me.cboShift.Name = "cboShift"
+        Me.cboShift.Size = New System.Drawing.Size(104, 21)
+        Me.cboShift.TabIndex = 5
         '
         'frmEditAppt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1215, 178)
+        Me.ClientSize = New System.Drawing.Size(1044, 175)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.cboShift)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.txtMRN)
         Me.Controls.Add(Me.btnCancel)
@@ -357,4 +378,6 @@ Partial Class frmEditAppt
     Friend WithEvents btnCancel As Button
     Friend WithEvents Label4 As Label
     Friend WithEvents txtMRN As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents cboShift As ComboBox
 End Class

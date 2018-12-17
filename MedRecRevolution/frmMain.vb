@@ -5,6 +5,7 @@ Public Class frmMain
     Private AddForm As frmAdd
     Private EditAForm As frmEditAppt
     Private EditOut As frmEditOutcome
+    Private CreateOut As frmCreateOutcome
 
 
     'The two main data structures that hold everything in the database
@@ -22,6 +23,7 @@ Public Class frmMain
         Dim LastText As DateTime
         Dim NumTextsSent As Integer
         Dim MRN As String
+        Dim Shift As String
     End Structure
     Dim Appointments As Appointment()
     Structure Outcome
@@ -48,6 +50,7 @@ Public Class frmMain
         Dim Comment As String
         Dim TotalList As Integer
         Dim MRN As String
+        Dim Shift As String
     End Structure
     Dim Outcomes As Outcome()
 
@@ -66,7 +69,7 @@ Public Class frmMain
         Dim SoftwareVersion As String
         'SoftwareVersion = "EDITOR"
         SoftwareVersion = "SERVER"
-        lblVersion.Text = SoftwareVersion & " VERSION 2.2"
+        lblVersion.Text = SoftwareVersion & " VERSION 2.3"
 
 
 
@@ -116,6 +119,7 @@ Public Class frmMain
         lvwReminder.Columns.Add("First Name")
         lvwReminder.Columns.Add("Last Name")
         lvwReminder.Columns.Add("Clinic")
+        lvwReminder.Columns.Add("Shift")
         lvwReminder.Columns.Add("Group")
         lvwReminder.Columns.Add("Language")
         lvwReminder.Columns.Add("Mobile Number")
@@ -133,6 +137,7 @@ Public Class frmMain
         lvwOutcome.Columns.Add("First Name")
         lvwOutcome.Columns.Add("Last Name")
         lvwOutcome.Columns.Add("Clinic")
+        lvwOutcome.Columns.Add("Shift")
         lvwOutcome.Columns.Add("Group")
         lvwOutcome.Columns.Add("Language")
         lvwOutcome.Columns.Add("Mobile Number")
@@ -191,6 +196,7 @@ Public Class frmMain
             'Grab data for outcomes
             command = New OleDbCommand("SELECT * FROM Outcomes", connection)
             data_reader = command.ExecuteReader
+            TotalRows = data_reader.RecordsAffected
 
             'add data to data structure
             If data_reader.HasRows Then
@@ -220,6 +226,7 @@ Public Class frmMain
                     If data_reader.GetValue(21).ToString <> "" Then Outcomes(count).Clinic = CStr(data_reader.GetValue(21))         'Clinic
                     If data_reader.GetValue(22).ToString <> "" Then Outcomes(count).TotalList = CInt(data_reader.GetValue(22))      'Total List
                     If data_reader.GetValue(23).ToString <> "" Then Outcomes(count).MRN = CStr(data_reader.GetValue(23))            'MRN
+                    If data_reader.GetValue(24).ToString <> "" Then Outcomes(count).Shift = CStr(data_reader.GetValue(24))           'Shift
                     count = count + 1
                 End While
             End If
@@ -257,6 +264,7 @@ Public Class frmMain
                     newitem.SubItems.Add(Outcomes(count).FirstName)     'First Name
                     newitem.SubItems.Add(Outcomes(count).LastName)      'Last Name
                     newitem.SubItems.Add(Outcomes(count).Clinic)        'Clinic
+                    newitem.SubItems.Add(Outcomes(count).Shift)         'Shift
                     newitem.SubItems.Add(Outcomes(count).Group)         'Group
                     newitem.SubItems.Add(Outcomes(count).Language)      'Language
                     newitem.SubItems.Add(Outcomes(count).Mobile)        'Mobile
@@ -275,7 +283,14 @@ Public Class frmMain
                     Else
                         newitem.SubItems.Add(Outcomes(count).ReminderTime) 'Reminder Time
                     End If
-                    newitem.SubItems.Add(Outcomes(count).LastText)     'Last Text
+
+                    If Outcomes(count).LastText = NoDate Then
+                        newitem.SubItems.Add("")
+                    Else
+                        newitem.SubItems.Add(Outcomes(count).LastText.ToString("MM/dd/yyyy"))  'Last Text
+                    End If
+
+                    'newitem.SubItems.Add(Outcomes(count).LastText)     'Last Text
                     newitem.SubItems.Add(Outcomes(count).NumTextsSent) 'NumTextsSent
                     If Outcomes(count).ReconcileDate = NoDate Then
                         newitem.SubItems.Add("")
@@ -302,6 +317,8 @@ Public Class frmMain
                             newitem.SubItems.Add("No-Staff Issue")
                         Case 8
                             newitem.SubItems.Add("No-Other Issue")
+                        Case 9
+                            newitem.SubItems.Add("Yes-W/o text reminder")
                     End Select
                     newitem.SubItems.Add(Outcomes(count).ClaimsAll)     'Claims All
                     newitem.SubItems.Add(Outcomes(count).NumMeds)       'Num Meds
@@ -384,6 +401,7 @@ Public Class frmMain
                     If data_reader.GetValue(10).ToString <> "" Then Appointments(count).NumTextsSent = CInt(data_reader.GetValue(10))   'NumTextsSent
                     If data_reader.GetValue(11).ToString <> "" Then Appointments(count).Clinic = CStr(data_reader.GetValue(11))         'Clinic
                     If data_reader.GetValue(12).ToString <> "" Then Appointments(count).MRN = CStr(data_reader.GetValue(12))            'MRN
+                    If data_reader.GetValue(13).ToString <> "" Then Appointments(count).Shift = CStr(data_reader.GetValue(13))          'Shift
                     count = count + 1
                 End While
             End If
@@ -420,6 +438,7 @@ Public Class frmMain
                     newitem.SubItems.Add(Appointments(count).FirstName)     'First Name
                     newitem.SubItems.Add(Appointments(count).LastName)      'Last Name
                     newitem.SubItems.Add(Appointments(count).Clinic)        'Clinic
+                    newitem.SubItems.Add(Appointments(count).Shift)         'Shift
                     newitem.SubItems.Add(Appointments(count).Group)         'Group
                     newitem.SubItems.Add(Appointments(count).Language)      'Language
                     newitem.SubItems.Add(Appointments(count).Mobile)        'Mobile
@@ -614,6 +633,7 @@ Public Class frmMain
                     Dim lasttxt As String = data_reader.GetValue(9) & ""
                     Dim clinic As String = data_reader.GetValue(11) & ""
                     Dim MRN As String = data_reader.GetValue(12) & ""
+                    Dim Shift As String = data_reader.GetValue(13) & ""
                     Dim numtxts As Integer = 0
                     Dim sms_msg As String = "DCI appreciates you"
                     Dim comment As String = ""
@@ -644,8 +664,8 @@ Public Class frmMain
                         For Each oItem As ListViewItem In lvwReminder.Items
                             Dim count As Integer = oItem.SubItems.Count
                             If oItem.Text = data_reader.GetValue(0) Then
-                                oItem.SubItems(10).Text = lasttxt
-                                oItem.SubItems(11).Text = CStr(numtxts)
+                                oItem.SubItems(11).Text = lasttxt
+                                oItem.SubItems(12).Text = CStr(numtxts)
                             End If
                         Next
                     End If
@@ -656,18 +676,19 @@ Public Class frmMain
                     newitem.SubItems.Add(fname)         '1
                     newitem.SubItems.Add(lname)         '2
                     newitem.SubItems.Add(clinic)        '3
-                    newitem.SubItems.Add(group)         '4
-                    newitem.SubItems.Add(language)      '5
-                    newitem.SubItems.Add(mnum)          '6
-                    newitem.SubItems.Add(sday)          '7
-                    newitem.SubItems.Add(rday1)         '8
-                    newitem.SubItems.Add(rtime1)        '9
+                    newitem.SubItems.Add(Shift)        '4
+                    newitem.SubItems.Add(group)         '5
+                    newitem.SubItems.Add(language)      '6
+                    newitem.SubItems.Add(mnum)          '7
+                    newitem.SubItems.Add(sday)          '8
+                    newitem.SubItems.Add(rday1)         '9
+                    newitem.SubItems.Add(rtime1)        '10
                     If EventHappened = 0 Then
                         newitem.SubItems.Add("")
                     Else
-                        newitem.SubItems.Add(lasttxt)       '10
+                        newitem.SubItems.Add(lasttxt)       '11
                     End If
-                    newitem.SubItems.Add(CStr(numtxts)) '11
+                    newitem.SubItems.Add(CStr(numtxts)) '12
                     newitem.SubItems.Add("") ' actual rec date
                     'newitem.SubItems.Add(EventHappened) 'Happened - set to staff issue by default
                     Select Case EventHappened
@@ -689,6 +710,8 @@ Public Class frmMain
                             newitem.SubItems.Add("No-Staff Issue")
                         Case 8
                             newitem.SubItems.Add("No-Other Issue")
+                        Case 9
+                            newitem.SubItems.Add("Yes-w/o text reminder")
                     End Select
                     newitem.SubItems.Add("") 'claims all
                     newitem.SubItems.Add("") 'num meds brought
@@ -702,14 +725,14 @@ Public Class frmMain
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN)
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN, Shift)
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
                         If oItem.Text = data_reader.GetValue(0) Then
-                            oItem.SubItems(7).Text = "" 'Scheduled Day
-                            oItem.SubItems(8).Text = "" 'Reminder Day
-                            oItem.SubItems(9).Text = "" 'Reminder Time
+                            oItem.SubItems(8).Text = "" 'Scheduled Day
+                            oItem.SubItems(9).Text = "" 'Reminder Day
+                            oItem.SubItems(10).Text = "" 'Reminder Time
                         End If
                     Next
 
@@ -719,7 +742,7 @@ Public Class frmMain
                         Twilio_Text(mnum, sms_msg)
                     End If
                     'update Appts DB table - to reflect that the text went out
-                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN)
+                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN, Shift)
 
                 End While
 
@@ -778,6 +801,7 @@ Public Class frmMain
                     Dim lasttxt As String = data_reader.GetValue(9) & ""
                     Dim clinic As String = data_reader.GetValue(11) & ""
                     Dim MRN As String = data_reader.GetValue(12) & ""
+                    Dim Shift As String = data_reader.GetValue(13) & ""
                     Dim numtxts As Integer = 0
                     Dim sms_msg As String = "DCI appreciates you"
                     Dim comment As String = ""
@@ -808,8 +832,8 @@ Public Class frmMain
                         For Each oItem As ListViewItem In lvwReminder.Items
                             Dim count As Integer = oItem.SubItems.Count
                             If oItem.Text = data_reader.GetValue(0) Then
-                                oItem.SubItems(10).Text = lasttxt
-                                oItem.SubItems(11).Text = CStr(numtxts)
+                                oItem.SubItems(11).Text = lasttxt
+                                oItem.SubItems(12).Text = CStr(numtxts)
                             End If
                         Next
                     End If
@@ -820,18 +844,19 @@ Public Class frmMain
                     newitem.SubItems.Add(fname)         '1
                     newitem.SubItems.Add(lname)         '2
                     newitem.SubItems.Add(clinic)        '3
-                    newitem.SubItems.Add(group)         '4
-                    newitem.SubItems.Add(language)      '5
-                    newitem.SubItems.Add(mnum)          '6
-                    newitem.SubItems.Add(sday)          '7
-                    newitem.SubItems.Add(rday1)         '8
-                    newitem.SubItems.Add(rtime1)        '9
+                    newitem.SubItems.Add(Shift)         '4
+                    newitem.SubItems.Add(group)         '5
+                    newitem.SubItems.Add(language)      '6
+                    newitem.SubItems.Add(mnum)          '7
+                    newitem.SubItems.Add(sday)          '8
+                    newitem.SubItems.Add(rday1)         '9
+                    newitem.SubItems.Add(rtime1)        '10
                     If EventHappened = 0 Then
                         newitem.SubItems.Add("")
                     Else
-                        newitem.SubItems.Add(lasttxt)       '10
+                        newitem.SubItems.Add(lasttxt)       '11
                     End If
-                    newitem.SubItems.Add(CStr(numtxts)) '11
+                    newitem.SubItems.Add(CStr(numtxts)) '12
                     newitem.SubItems.Add("") ' actual rec date
                     'newitem.SubItems.Add(EventHappened) 'Happened - set to staff issue by default
                     Select Case EventHappened
@@ -853,6 +878,8 @@ Public Class frmMain
                             newitem.SubItems.Add("No-Staff Issue")
                         Case 8
                             newitem.SubItems.Add("No-Other Issue")
+                        Case 9
+                            newitem.SubItems.Add("Yes-w/o text reminder")
                     End Select
                     newitem.SubItems.Add("") 'claims all
                     newitem.SubItems.Add("") 'num meds brought
@@ -866,14 +893,14 @@ Public Class frmMain
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN)
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN, Shift)
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
                         If oItem.Text = data_reader.GetValue(0) Then
-                            oItem.SubItems(7).Text = "" 'Scheduled Day
-                            oItem.SubItems(8).Text = "" 'Reminder Day
-                            oItem.SubItems(9).Text = "" 'Reminder Time
+                            oItem.SubItems(8).Text = "" 'Scheduled Day
+                            oItem.SubItems(9).Text = "" 'Reminder Day
+                            oItem.SubItems(10).Text = "" 'Reminder Time
                         End If
                     Next
 
@@ -883,7 +910,7 @@ Public Class frmMain
                         'MsgBox("Text sent to " & fname & " " & lname & " at " & mnum)
                     End If
                     'update Appts DB table - to reflect that the text went out
-                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN)
+                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN, Shift)
 
                 End While
 
@@ -900,4 +927,19 @@ Public Class frmMain
 
 
     End Sub
+
+    Private Sub btnCreate_Click(sender As Object, e As EventArgs) Handles btnCreate.Click
+        'Find selected item or give user message that they must select something first
+        If lvwReminder.SelectedItems.Count = 0 Then
+            MsgBox("Select an entry in the appointment reminders list before clicking the create outcome button")
+        Else
+            If CreateOut Is Nothing Then
+                Dim CreateOut As New frmCreateOutcome
+                CreateOut.ShowDialog()
+            End If
+        End If
+
+    End Sub
+
 End Class
+

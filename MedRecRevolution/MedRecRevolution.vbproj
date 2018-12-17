@@ -108,6 +108,12 @@
     <Compile Include="DB Functions.vb" />
     <Compile Include="Encryption.vb" />
     <Compile Include="File IO.vb" />
+    <Compile Include="frmCreateOutcome.Designer.vb">
+      <DependentUpon>frmCreateOutcome.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCreateOutcome.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmEditAppt.Designer.vb">
       <DependentUpon>frmEditAppt.vb</DependentUpon>
     </Compile>
@@ -159,6 +165,9 @@
     <Compile Include="Twilio.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmCreateOutcome.resx">
+      <DependentUpon>frmCreateOutcome.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEditAppt.resx">
       <DependentUpon>frmEditAppt.vb</DependentUpon>
     </EmbeddedResource>

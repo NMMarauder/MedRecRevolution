@@ -32,26 +32,37 @@
             str = frmMain.lvwReminder.SelectedItems(0).SubItems(3).Text
             cboClinic.SelectedIndex = cboClinic.FindString(str)
 
+            'Shift
+            cboShift.Items.Add("MWF - 1")
+            cboShift.Items.Add("MWF - 2")
+            cboShift.Items.Add("MWF - 3")
+            cboShift.Items.Add("TTS - 1")
+            cboShift.Items.Add("TTS - 2")
+            cboShift.Items.Add("TTS - 3")
+            str = frmMain.lvwReminder.SelectedItems(0).SubItems(4).Text
+            If str <> "" Then cboShift.SelectedIndex = cboShift.FindString(str)
+
+
             'Group
             cboGroup.Items.Add("Not Participating")
             cboGroup.Items.Add("Receiving Texts")
-            cboGroup.SelectedIndex = CInt(frmMain.lvwReminder.SelectedItems(0).SubItems(4).Text)
+            cboGroup.SelectedIndex = CInt(frmMain.lvwReminder.SelectedItems(0).SubItems(5).Text)
 
             'Language
             For i = 0 To FrmPassword.cboLanguageName.Items.Count - 1
                 cboLanguage.Items.Add(FrmPassword.cboLanguageName.Items(i))
             Next
-            str = frmMain.lvwReminder.SelectedItems(0).SubItems(5).Text
+            str = frmMain.lvwReminder.SelectedItems(0).SubItems(6).Text
             cboLanguage.SelectedIndex = cboLanguage.FindString(str)
 
             'mobile
-            txtMobile.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(6).Text
+            txtMobile.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(7).Text
 
             'scheduled
             dtScheduled.CustomFormat = "dd MMM yyyy"
             dtScheduled.Format = DateTimePickerFormat.Custom
-            If frmMain.lvwReminder.SelectedItems(0).SubItems(7).Text <> "" Then
-                dtScheduled.Value = frmMain.lvwReminder.SelectedItems(0).SubItems(7).Text
+            If frmMain.lvwReminder.SelectedItems(0).SubItems(8).Text <> "" Then
+                dtScheduled.Value = frmMain.lvwReminder.SelectedItems(0).SubItems(8).Text
             Else
                 dtScheduled.CustomFormat = " "
             End If
@@ -59,8 +70,8 @@
             'Reminder Date
             dtReminder.CustomFormat = "dd MMM yyyy"
             dtReminder.Format = DateTimePickerFormat.Custom
-            If frmMain.lvwReminder.SelectedItems(0).SubItems(8).Text <> "" Then
-                dtReminder.Value = frmMain.lvwReminder.SelectedItems(0).SubItems(8).Text
+            If frmMain.lvwReminder.SelectedItems(0).SubItems(9).Text <> "" Then
+                dtReminder.Value = frmMain.lvwReminder.SelectedItems(0).SubItems(9).Text
             Else
                 dtReminder.CustomFormat = " "
                 dtReminder.Format = DateTimePickerFormat.Custom
@@ -81,16 +92,16 @@
                     cboRTime.Items.Add(strHr & ":" & strMin)
                 Next jj
             Next ii
-            If frmMain.lvwReminder.SelectedItems(0).SubItems(9).Text <> "" Then
-                cboRTime.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(9).Text
+            If frmMain.lvwReminder.SelectedItems(0).SubItems(10).Text <> "" Then
+                cboRTime.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(10).Text
             Else
                 cboRTime.Text = ""
                 cboRTime.SelectedItem = Nothing
             End If
 
-            txtLastText.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(10).Text
-            txtNumTexts.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(11).Text
-            txtMRN.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(12).Text
+            txtLastText.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(11).Text
+            txtNumTexts.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(12).Text
+            txtMRN.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(13).Text
 
         Catch ex As Exception
             WriteToLog("frmEdit_Load on frmEditAppt - Exception Follows: " & ex.Message)
@@ -121,16 +132,19 @@
             '3. Clinic
             Dim Clinic As String = cboClinic.Text
 
-            '4. Group
+            '4 Shift 
+            Dim Shift As String = cboShift.Text
+
+            '5. Group
             Dim group As String = CInt(cboGroup.SelectedIndex)
 
-            '5. Language
+            '6. Language
             Dim language As String = cboLanguage.Text
 
-            '6. Mobile
+            '7. Mobile
             Dim checkPhone As Boolean = False
             Dim mnum As String = CStr(txtMobile.Text)
-            If mnum <> frmMain.lvwReminder.SelectedItems(0).SubItems(6).Text Then 'Only check if changed
+            If mnum <> frmMain.lvwReminder.SelectedItems(0).SubItems(7).Text Then 'Only check if changed
                 checkPhone = True 'This is to check for duplicate phone numbers 
                 If mnum <> "" Then
                     ' Check to see if the number entered could be a valid US number
@@ -228,7 +242,7 @@
                 If checkName Or checkPhone Then IsDuplicate(mnum, fname, lname, group, DupeFound, frmMain.lvwReminder)
                 If DupeFound > 0 Then alertUser = True
                 If Not alertUser Then
-                    UpdateAppt(ID, fname, lname, group, mnum, language, sday, rday, rtime, lasttxt, numtxts, Clinic, MRN)
+                    UpdateAppt(ID, fname, lname, group, mnum, language, sday, rday, rtime, lasttxt, numtxts, Clinic, MRN, Shift)
                     frmMain.lvwReminder.Items.Clear()
                     frmMain.LoadApptStructFromDB()
                     frmMain.LoadApptList(frmMain.lvwReminder)
@@ -278,6 +292,8 @@
         cboLanguage.SelectedIndex = -1
         cboLanguage.Text = ""
         cboLanguage.SelectedItem = ""
+        cboShift.Text = ""
+        cboShift.SelectedItem = ""
         Return True
 
     End Function

@@ -34,6 +34,7 @@ Partial Class frmMain
         Me.Label3 = New System.Windows.Forms.Label()
         Me.lvwReminder = New System.Windows.Forms.ListView()
         Me.lblVersion = New System.Windows.Forms.Label()
+        Me.btnCreate = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Timer1
@@ -143,11 +144,21 @@ Partial Class frmMain
         Me.lblVersion.TabIndex = 10
         Me.lblVersion.Text = "Version"
         '
+        'btnCreate
+        '
+        Me.btnCreate.Location = New System.Drawing.Point(576, 205)
+        Me.btnCreate.Name = "btnCreate"
+        Me.btnCreate.Size = New System.Drawing.Size(131, 23)
+        Me.btnCreate.TabIndex = 11
+        Me.btnCreate.Text = "Create Outcome"
+        Me.btnCreate.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1493, 526)
+        Me.Controls.Add(Me.btnCreate)
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.lvwReminder)
         Me.Controls.Add(Me.Label3)
@@ -178,4 +189,5 @@ Partial Class frmMain
     Friend WithEvents Label3 As Label
     Friend WithEvents lvwReminder As ListView
     Friend WithEvents lblVersion As Label
+    Friend WithEvents btnCreate As Button
 End Class

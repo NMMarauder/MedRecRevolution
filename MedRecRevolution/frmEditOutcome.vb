@@ -32,26 +32,36 @@
             str = frmMain.lvwOutcome.SelectedItems(0).SubItems(3).Text
             cboClinic.SelectedIndex = cboClinic.FindString(str)
 
+            'Shift
+            cboShift.Items.Add("MWF - 1")
+            cboShift.Items.Add("MWF - 2")
+            cboShift.Items.Add("MWF - 3")
+            cboShift.Items.Add("TTS - 1")
+            cboShift.Items.Add("TTS - 2")
+            cboShift.Items.Add("TTS - 3")
+            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(4).Text
+            If str <> "" Then cboShift.SelectedIndex = cboShift.FindString(str)
+
             'Group
             cboGroup.Items.Add("Not Participating")
             cboGroup.Items.Add("Receiving Texts")
-            cboGroup.SelectedIndex = CInt(frmMain.lvwOutcome.SelectedItems(0).SubItems(4).Text)
+            cboGroup.SelectedIndex = CInt(frmMain.lvwOutcome.SelectedItems(0).SubItems(5).Text)
 
             'Language
             For i = 0 To FrmPassword.cboLanguageName.Items.Count - 1
                 cboLanguage.Items.Add(FrmPassword.cboLanguageName.Items(i))
             Next
-            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(5).Text
+            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(6).Text
             cboLanguage.SelectedIndex = cboLanguage.FindString(str)
 
             'mobile
-            txtMobile.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(6).Text
+            txtMobile.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(7).Text
 
             'scheduled
             dtScheduled.CustomFormat = "dd MMM yyyy"
             dtScheduled.Format = DateTimePickerFormat.Custom
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(7).Text <> "" Then
-                dtScheduled.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(7).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(8).Text <> "" Then
+                dtScheduled.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(8).Text
             Else
                 dtScheduled.CustomFormat = " "
             End If
@@ -59,8 +69,8 @@
             'Reminder Date
             dtReminder.CustomFormat = "dd MMM yyyy"
             dtReminder.Format = DateTimePickerFormat.Custom
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(8).Text <> "" Then
-                dtReminder.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(8).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(9).Text <> "" Then
+                dtReminder.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(9).Text
             Else
                 dtReminder.CustomFormat = " "
                 dtReminder.Format = DateTimePickerFormat.Custom
@@ -81,23 +91,23 @@
                     cboRTime.Items.Add(strHr & ":" & strMin)
                 Next jj
             Next ii
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(9).Text <> "" Then
-                cboRTime.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(9).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(10).Text <> "" Then
+                cboRTime.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(10).Text
             Else
                 cboRTime.Text = ""
                 cboRTime.SelectedItem = Nothing
             End If
 
             'date of last text and number of texts so far
-            txtLastText.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(10).Text
-            txtNumTexts.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(11).Text
+            txtLastText.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(11).Text
+            txtNumTexts.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(12).Text
 
 
             'Date reconcile happened
             dtReconcile.CustomFormat = "dd MMM yyyy"
             dtReconcile.Format = DateTimePickerFormat.Custom
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(12).Text <> "" Then
-                dtReconcile.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(12).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text <> "" Then
+                dtReconcile.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text
             Else
                 dtReconcile.CustomFormat = " "
             End If
@@ -113,19 +123,20 @@
                 cboHappened.Items.Add("No-Patient Forgot - Reschedule 1 week")
                 cboHappened.Items.Add("No-Staff Issue")
                 cboHappened.Items.Add("No-Other Issue")
+                cboHappened.Items.Add("Yes-W/o text reminder")
             End If
-            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text
+            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(14).Text
             cboHappened.SelectedIndex = cboHappened.FindString(str)
             'cboHappened.SelectedIndex = CInt(frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text)
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(14).Text = "1" Then chkAll.Checked = True
-            txtNumMedsBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(15).Text
-            txtUsefulList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(16).Text
-            txtTotalList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(17).Text
-            txtNumPhotosBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(18).Text
-            txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text = "1" Then chkTech.Checked = True
-            rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(21).Text
-            txtMRN.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(22).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(15).Text = "1" Then chkAll.Checked = True
+            txtNumMedsBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(16).Text
+            txtUsefulList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(17).Text
+            txtTotalList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(18).Text
+            txtNumPhotosBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text
+            txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(21).Text = "1" Then chkTech.Checked = True
+            rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(22).Text
+            txtMRN.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(23).Text
 
         Catch ex As Exception
             WriteToLog("frmEditOutcome_Load on frmEditOutcome - Exception Follows: " & ex.Message)
@@ -165,7 +176,7 @@
                 'Check happened 0-8
                 Dim happened As Integer
                 happened = cboHappened.SelectedIndex
-                If happened > 8 Or happened < 0 Then
+                If happened > 9 Or happened < 0 Then
                     MsgBox("Oops. The reconcile happened response has a problem.")
                     updateReady = False
                 End If
@@ -219,9 +230,11 @@
                     End If
                 End If
 
+                Dim Shift As String = cboShift.Text
+
                 'Update outcome table in DB  - Where ID & scheduled date matches   
                 If updateReady Then
-                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList, MRN)
+                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList, MRN, Shift)
 
                     'Update outcomes list
                     frmMain.lvwOutcome.Items.Clear()
@@ -260,7 +273,7 @@
         dtScheduled.Format = DateTimePickerFormat.Custom
         dtReminder.CustomFormat = " "
         dtReminder.Format = DateTimePickerFormat.Custom
-        cboGroup.SelectedIndex = 0
+        cboGroup.SelectedIndex = -1
         cboClinic.SelectedIndex = -1
         txtNumTexts.ResetText()
         dtReconcile.CustomFormat = " "
@@ -276,6 +289,8 @@
         cboLanguage.SelectedIndex = -1
         txtUsefulList.ResetText()
         txtTotalList.ResetText()
+        cboShift.ResetText()
+        cboShift.SelectedIndex = -1
 
         Return True
 

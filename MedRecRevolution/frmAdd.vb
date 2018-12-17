@@ -42,6 +42,14 @@
         Next
         cboLanguage.SelectedIndex = 0
 
+        cboShift.Items.Add("MWF - 1")
+        cboShift.Items.Add("MWF - 2")
+        cboShift.Items.Add("MWF - 3")
+        cboShift.Items.Add("TTS - 1")
+        cboShift.Items.Add("TTS - 2")
+        cboShift.Items.Add("TTS - 3")
+
+
         'frmMain.Hide()
 
 
@@ -82,6 +90,8 @@
         cboLanguage.Text = ""
         cboLanguage.SelectedItem = ""
         txtMRN.ResetText()
+        cboShift.Text = ""
+        cboShift.SelectedIndex = -1
         Return True
 
     End Function
@@ -116,6 +126,9 @@
 
             '3 Clinic
             Dim Clinic As String = cboClinic.Text
+
+            '4 Shift
+            Dim Shift As String = cboShift.Text
 
             '4 Group
             Dim group As Integer = cboGroup.SelectedIndex
@@ -209,7 +222,7 @@
                 IsDuplicate(mnum, fname, lname, group, DupeFound, frmMain.lvwReminder)
                 If DupeFound = 0 Then
                     'C & D - Push data to database and reload the list
-                    Insert_into_ApptTable(fname, lname, group, mnum, language, sday, rday, rtime, FrmPassword.txtDBPath.Text, Clinic, MRN)
+                    Insert_into_ApptTable(fname, lname, group, mnum, language, sday, rday, rtime, FrmPassword.txtDBPath.Text, Clinic, MRN, shift)
                     frmMain.lvwReminder.Items.Clear()
                     frmMain.LoadApptStructFromDB()
                     frmMain.LoadApptList(frmMain.lvwReminder)
