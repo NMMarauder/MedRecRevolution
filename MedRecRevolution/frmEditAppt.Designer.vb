@@ -26,12 +26,6 @@ Partial Class frmEditAppt
         Me.cboLanguage = New System.Windows.Forms.ComboBox()
         Me.lblClinic = New System.Windows.Forms.Label()
         Me.cboClinic = New System.Windows.Forms.ComboBox()
-        Me.lblRTime = New System.Windows.Forms.Label()
-        Me.lblReminder = New System.Windows.Forms.Label()
-        Me.lblScheduled = New System.Windows.Forms.Label()
-        Me.cboRTime = New System.Windows.Forms.ComboBox()
-        Me.dtReminder = New System.Windows.Forms.DateTimePicker()
-        Me.dtScheduled = New System.Windows.Forms.DateTimePicker()
         Me.lblMobile = New System.Windows.Forms.Label()
         Me.lblGroup = New System.Windows.Forms.Label()
         Me.lblLast = New System.Windows.Forms.Label()
@@ -52,6 +46,15 @@ Partial Class frmEditAppt
         Me.txtMRN = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboShift = New System.Windows.Forms.ComboBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.lblRTime = New System.Windows.Forms.Label()
+        Me.lblReminder = New System.Windows.Forms.Label()
+        Me.lblScheduled = New System.Windows.Forms.Label()
+        Me.cboRTime = New System.Windows.Forms.ComboBox()
+        Me.dtReminder = New System.Windows.Forms.DateTimePicker()
+        Me.dtScheduled = New System.Windows.Forms.DateTimePicker()
+        Me.btnClear = New System.Windows.Forms.Button()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lblLanguage
@@ -87,57 +90,6 @@ Partial Class frmEditAppt
         Me.cboClinic.Name = "cboClinic"
         Me.cboClinic.Size = New System.Drawing.Size(137, 21)
         Me.cboClinic.TabIndex = 4
-        '
-        'lblRTime
-        '
-        Me.lblRTime.AutoSize = True
-        Me.lblRTime.Location = New System.Drawing.Point(307, 73)
-        Me.lblRTime.Name = "lblRTime"
-        Me.lblRTime.Size = New System.Drawing.Size(78, 13)
-        Me.lblRTime.TabIndex = 33
-        Me.lblRTime.Text = "Reminder Time"
-        '
-        'lblReminder
-        '
-        Me.lblReminder.AutoSize = True
-        Me.lblReminder.Location = New System.Drawing.Point(165, 73)
-        Me.lblReminder.Name = "lblReminder"
-        Me.lblReminder.Size = New System.Drawing.Size(78, 13)
-        Me.lblReminder.TabIndex = 32
-        Me.lblReminder.Text = "Reminder Date"
-        '
-        'lblScheduled
-        '
-        Me.lblScheduled.AutoSize = True
-        Me.lblScheduled.Location = New System.Drawing.Point(27, 73)
-        Me.lblScheduled.Name = "lblScheduled"
-        Me.lblScheduled.Size = New System.Drawing.Size(109, 13)
-        Me.lblScheduled.TabIndex = 31
-        Me.lblScheduled.Text = "Scheduled Reconcile"
-        '
-        'cboRTime
-        '
-        Me.cboRTime.FormattingEnabled = True
-        Me.cboRTime.Location = New System.Drawing.Point(308, 88)
-        Me.cboRTime.Name = "cboRTime"
-        Me.cboRTime.Size = New System.Drawing.Size(90, 21)
-        Me.cboRTime.TabIndex = 11
-        '
-        'dtReminder
-        '
-        Me.dtReminder.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtReminder.Location = New System.Drawing.Point(168, 89)
-        Me.dtReminder.Name = "dtReminder"
-        Me.dtReminder.Size = New System.Drawing.Size(115, 20)
-        Me.dtReminder.TabIndex = 10
-        '
-        'dtScheduled
-        '
-        Me.dtScheduled.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
-        Me.dtScheduled.Location = New System.Drawing.Point(30, 89)
-        Me.dtScheduled.Name = "dtScheduled"
-        Me.dtScheduled.Size = New System.Drawing.Size(123, 20)
-        Me.dtScheduled.TabIndex = 9
         '
         'lblMobile
         '
@@ -215,7 +167,7 @@ Partial Class frmEditAppt
         'txtLastText
         '
         Me.txtLastText.Enabled = False
-        Me.txtLastText.Location = New System.Drawing.Point(426, 89)
+        Me.txtLastText.Location = New System.Drawing.Point(426, 98)
         Me.txtLastText.Name = "txtLastText"
         Me.txtLastText.Size = New System.Drawing.Size(128, 20)
         Me.txtLastText.TabIndex = 12
@@ -223,7 +175,7 @@ Partial Class frmEditAppt
         'txtNumTexts
         '
         Me.txtNumTexts.Enabled = False
-        Me.txtNumTexts.Location = New System.Drawing.Point(578, 89)
+        Me.txtNumTexts.Location = New System.Drawing.Point(578, 98)
         Me.txtNumTexts.Name = "txtNumTexts"
         Me.txtNumTexts.Size = New System.Drawing.Size(78, 20)
         Me.txtNumTexts.TabIndex = 13
@@ -240,7 +192,7 @@ Partial Class frmEditAppt
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(423, 73)
+        Me.Label2.Location = New System.Drawing.Point(423, 82)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(89, 13)
         Me.Label2.TabIndex = 40
@@ -249,7 +201,7 @@ Partial Class frmEditAppt
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(575, 73)
+        Me.Label3.Location = New System.Drawing.Point(575, 82)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 41
@@ -306,11 +258,88 @@ Partial Class frmEditAppt
         Me.cboShift.Size = New System.Drawing.Size(104, 21)
         Me.cboShift.TabIndex = 5
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.btnClear)
+        Me.GroupBox1.Controls.Add(Me.lblRTime)
+        Me.GroupBox1.Controls.Add(Me.lblReminder)
+        Me.GroupBox1.Controls.Add(Me.lblScheduled)
+        Me.GroupBox1.Controls.Add(Me.cboRTime)
+        Me.GroupBox1.Controls.Add(Me.dtReminder)
+        Me.GroupBox1.Controls.Add(Me.dtScheduled)
+        Me.GroupBox1.Location = New System.Drawing.Point(28, 65)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(388, 101)
+        Me.GroupBox1.TabIndex = 46
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Dates"
+        '
+        'lblRTime
+        '
+        Me.lblRTime.AutoSize = True
+        Me.lblRTime.Location = New System.Drawing.Point(289, 19)
+        Me.lblRTime.Name = "lblRTime"
+        Me.lblRTime.Size = New System.Drawing.Size(78, 13)
+        Me.lblRTime.TabIndex = 39
+        Me.lblRTime.Text = "Reminder Time"
+        '
+        'lblReminder
+        '
+        Me.lblReminder.AutoSize = True
+        Me.lblReminder.Location = New System.Drawing.Point(147, 19)
+        Me.lblReminder.Name = "lblReminder"
+        Me.lblReminder.Size = New System.Drawing.Size(78, 13)
+        Me.lblReminder.TabIndex = 38
+        Me.lblReminder.Text = "Reminder Date"
+        '
+        'lblScheduled
+        '
+        Me.lblScheduled.AutoSize = True
+        Me.lblScheduled.Location = New System.Drawing.Point(9, 19)
+        Me.lblScheduled.Name = "lblScheduled"
+        Me.lblScheduled.Size = New System.Drawing.Size(109, 13)
+        Me.lblScheduled.TabIndex = 37
+        Me.lblScheduled.Text = "Scheduled Reconcile"
+        '
+        'cboRTime
+        '
+        Me.cboRTime.FormattingEnabled = True
+        Me.cboRTime.Location = New System.Drawing.Point(290, 34)
+        Me.cboRTime.Name = "cboRTime"
+        Me.cboRTime.Size = New System.Drawing.Size(90, 21)
+        Me.cboRTime.TabIndex = 36
+        '
+        'dtReminder
+        '
+        Me.dtReminder.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtReminder.Location = New System.Drawing.Point(150, 35)
+        Me.dtReminder.Name = "dtReminder"
+        Me.dtReminder.Size = New System.Drawing.Size(115, 20)
+        Me.dtReminder.TabIndex = 35
+        '
+        'dtScheduled
+        '
+        Me.dtScheduled.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtScheduled.Location = New System.Drawing.Point(12, 35)
+        Me.dtScheduled.Name = "dtScheduled"
+        Me.dtScheduled.Size = New System.Drawing.Size(123, 20)
+        Me.dtScheduled.TabIndex = 34
+        '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(150, 67)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(86, 21)
+        Me.btnClear.TabIndex = 40
+        Me.btnClear.Text = "Clear Dates"
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
         'frmEditAppt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1044, 175)
+        Me.ClientSize = New System.Drawing.Size(1044, 182)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cboShift)
         Me.Controls.Add(Me.Label4)
@@ -327,12 +356,6 @@ Partial Class frmEditAppt
         Me.Controls.Add(Me.cboLanguage)
         Me.Controls.Add(Me.lblClinic)
         Me.Controls.Add(Me.cboClinic)
-        Me.Controls.Add(Me.lblRTime)
-        Me.Controls.Add(Me.lblReminder)
-        Me.Controls.Add(Me.lblScheduled)
-        Me.Controls.Add(Me.cboRTime)
-        Me.Controls.Add(Me.dtReminder)
-        Me.Controls.Add(Me.dtScheduled)
         Me.Controls.Add(Me.lblMobile)
         Me.Controls.Add(Me.lblGroup)
         Me.Controls.Add(Me.lblLast)
@@ -345,6 +368,8 @@ Partial Class frmEditAppt
         Me.MinimizeBox = False
         Me.Name = "frmEditAppt"
         Me.Text = "Edit Reminder"
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -354,12 +379,6 @@ Partial Class frmEditAppt
     Friend WithEvents cboLanguage As ComboBox
     Friend WithEvents lblClinic As Label
     Friend WithEvents cboClinic As ComboBox
-    Public WithEvents lblRTime As Label
-    Public WithEvents lblReminder As Label
-    Public WithEvents lblScheduled As Label
-    Friend WithEvents cboRTime As ComboBox
-    Friend WithEvents dtReminder As DateTimePicker
-    Friend WithEvents dtScheduled As DateTimePicker
     Public WithEvents lblMobile As Label
     Friend WithEvents lblGroup As Label
     Friend WithEvents lblLast As Label
@@ -380,4 +399,12 @@ Partial Class frmEditAppt
     Friend WithEvents txtMRN As TextBox
     Friend WithEvents Label5 As Label
     Friend WithEvents cboShift As ComboBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents btnClear As Button
+    Public WithEvents lblRTime As Label
+    Public WithEvents lblReminder As Label
+    Public WithEvents lblScheduled As Label
+    Friend WithEvents cboRTime As ComboBox
+    Friend WithEvents dtReminder As DateTimePicker
+    Friend WithEvents dtScheduled As DateTimePicker
 End Class

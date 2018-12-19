@@ -1,15 +1,6 @@
 ﻿Public Class frmEditAppt
 
 
-    Private Sub dtReminder_ValueChanged(sender As Object, e As EventArgs) Handles dtReminder.ValueChanged
-        Me.dtReminder.Format = DateTimePickerFormat.Custom
-        Me.dtReminder.CustomFormat = "dd MMM yyyy"
-    End Sub
-
-    Private Sub dtScheduled_ValueChanged(sender As Object, e As EventArgs) Handles dtScheduled.ValueChanged
-        Me.dtScheduled.Format = DateTimePickerFormat.Custom
-        Me.dtScheduled.CustomFormat = "dd MMM yyyy"
-    End Sub
 
     Private Sub frmEdit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
@@ -297,6 +288,27 @@
         Return True
 
     End Function
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        dtScheduled.CustomFormat = " "
+        dtScheduled.Format = DateTimePickerFormat.Custom
+        dtScheduled.Update()
+        dtReminder.CustomFormat = " "
+        dtReminder.Format = DateTimePickerFormat.Custom
+        dtReminder.Update()
+        cboRTime.Text = ""
+        cboRTime.SelectedIndex = -1
+    End Sub
+
+    Private Sub dtScheduled_ValueChanged(sender As Object, e As EventArgs) Handles dtScheduled.ValueChanged
+        dtScheduled.Format = DateTimePickerFormat.Custom
+        Me.dtScheduled.CustomFormat = "dd MMM yyyy"
+    End Sub
+
+    Private Sub dtReminder_ValueChanged(sender As Object, e As EventArgs) Handles dtReminder.ValueChanged
+        dtReminder.Format = DateTimePickerFormat.Custom
+        Me.dtReminder.CustomFormat = "dd MMM yyyy"
+    End Sub
 
     'Private Sub dtReminder1_ValueChanged_1(sender As Object, e As EventArgs) Handles dtReminder1.ValueChanged
     '    Me.dtReminder1.Format = DateTimePickerFormat.Custom

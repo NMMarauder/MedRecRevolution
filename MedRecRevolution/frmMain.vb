@@ -67,9 +67,9 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        'SoftwareVersion = "EDITOR"
-        SoftwareVersion = "SERVER"
-        lblVersion.Text = SoftwareVersion & " VERSION 2.3"
+        SoftwareVersion = "EDITOR"
+        ' SoftwareVersion = "SERVER"
+        lblVersion.Text = SoftwareVersion & " VERSION 2.5"
 
 
 
@@ -287,7 +287,7 @@ Public Class frmMain
                     If Outcomes(count).LastText = NoDate Then
                         newitem.SubItems.Add("")
                     Else
-                        newitem.SubItems.Add(Outcomes(count).LastText.ToString("MM/dd/yyyy"))  'Last Text
+                        newitem.SubItems.Add(Outcomes(count).LastText.ToString("MM/dd/yyyy HH:mm:ss"))  'Last Text
                     End If
 
                     'newitem.SubItems.Add(Outcomes(count).LastText)     'Last Text
