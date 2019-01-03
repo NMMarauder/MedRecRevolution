@@ -67,9 +67,9 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        SoftwareVersion = "EDITOR"
-        ' SoftwareVersion = "SERVER"
-        lblVersion.Text = SoftwareVersion & " VERSION 2.5"
+        'SoftwareVersion = "EDITOR"
+        SoftwareVersion = "SERVER"
+        lblVersion.Text = SoftwareVersion & " VERSION 2.6"
 
 
 
@@ -613,7 +613,7 @@ Public Class frmMain
 
             'Check to see if reminders were missed since the last application start
             Dim today1 As String = System.DateTime.Now.ToString("MM/dd/yyyy")
-            Dim str As String = "SELECT * FROM Appts WHERE ((rday1 <> '') AND (rday1 < '" & today1 & "'));"
+            Dim str As String = "SELECT * FROM Appts WHERE ((rday1 <> '') AND (rday1 < '#" & today1 & "#'));"
             Dim command As New OleDbCommand(str, connection)
 
             data_reader = command.ExecuteReader
@@ -781,7 +781,7 @@ Public Class frmMain
             'Check to see if reminders were missed since the last application start
             Dim Time_now As String = System.DateTime.Now.ToString("HH:mm")
             Dim today As String = System.DateTime.Now.ToString("MM/dd/yyyy")
-            Dim Str As String = "SELECT * FROM Appts WHERE ((rday1 = '" & Today & "') AND (rtime1 <='" & Time_now & "'));"
+            Dim Str As String = "SELECT * FROM Appts WHERE ((rday1 = '#" & today & "#') AND (rtime1 <='" & Time_now & "'));"
             Dim command As New OleDbCommand(str, connection)
 
             data_reader = command.ExecuteReader
