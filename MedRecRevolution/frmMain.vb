@@ -661,7 +661,10 @@ Public Class frmMain
                             EventHappened = 0
                             comment = "At " & CStr(DTnow) & " the system determined that this reminder was missed.  "
                         End If
+                        If diff.Hours < 0 Then Exit Sub ' added when the SQL statement was redone.  Don't send normal texts from this sub
                     End If
+
+
                     If Not data_reader.GetValue(10) Is DBNull.Value Then
                         numtxts = data_reader.GetValue(10)
                     Else
