@@ -613,7 +613,21 @@ Public Class frmMain
 
             'Check to see if reminders were missed since the last application start
             Dim today1 As String = System.DateTime.Now.ToString("MM/dd/yyyy")
-            Dim str As String = "SELECT * FROM Appts WHERE ((rday1 <> '') AND (rday1 < '#" & today1 & "#'));"
+            'Dim str As String = "SELECT * FROM Appts WHERE ((rday1 <> '') AND (rday1 < '" & today1 & "'));"
+
+            'This ugly SQL stems from the text field used to hold the date in the database. The comparison operators don't work right on string fields
+            'when they hold dates.  So this SQL was created to determine which dates are actually earlier than today.  It compares the year, then month, 
+            'then day.  
+            Dim str As String = "Select * FROM (
+                                        Select * FROM(
+                                               Select * FROM Appts WHERE  Right([rday1], 4) <= Right('" & today1 & "', 4)
+                                        ) Where
+                                               (Left([rday1], 2) <= Left('" & today1 & "',2))
+                                ) Where ((Mid([rday1], 4, 2) <= Mid('" & today1 & "', 4, 2)) And isdate([rday1])=true)"
+
+
+
+
             Dim command As New OleDbCommand(str, connection)
 
             data_reader = command.ExecuteReader
@@ -781,7 +795,7 @@ Public Class frmMain
             'Check to see if reminders were missed since the last application start
             Dim Time_now As String = System.DateTime.Now.ToString("HH:mm")
             Dim today As String = System.DateTime.Now.ToString("MM/dd/yyyy")
-            Dim Str As String = "SELECT * FROM Appts WHERE ((rday1 = '#" & today & "#') AND (rtime1 <='" & Time_now & "'));"
+            Dim Str As String = "SELECT * FROM Appts WHERE ((rday1 = '" & today & "') AND (rtime1 <='" & Time_now & "'));"
             Dim command As New OleDbCommand(str, connection)
 
             data_reader = command.ExecuteReader
