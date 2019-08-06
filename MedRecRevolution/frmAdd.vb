@@ -92,6 +92,7 @@
         txtMRN.ResetText()
         cboShift.Text = ""
         cboShift.SelectedIndex = -1
+        txtNote.ResetText()
         Return True
 
     End Function
@@ -217,12 +218,15 @@
                 End If
             End If
 
+            Dim note As String = ""
+            note = txtNote.Text
+
             'Check for duplicate in the appointment list
             If msg = "" Then
                 IsDuplicate(mnum, fname, lname, group, DupeFound, frmMain.lvwReminder)
                 If DupeFound = 0 Then
                     'C & D - Push data to database and reload the list
-                    Insert_into_ApptTable(fname, lname, group, mnum, language, sday, rday, rtime, FrmPassword.txtDBPath.Text, Clinic, MRN, shift)
+                    Insert_into_ApptTable(fname, lname, group, mnum, language, sday, rday, rtime, FrmPassword.txtDBPath.Text, Clinic, MRN, Shift, note)
                     frmMain.lvwReminder.Items.Clear()
                     frmMain.LoadApptStructFromDB()
                     frmMain.LoadApptList(frmMain.lvwReminder)

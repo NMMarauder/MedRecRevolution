@@ -35,6 +35,10 @@ Partial Class frmMain
         Me.lvwReminder = New System.Windows.Forms.ListView()
         Me.lblVersion = New System.Windows.Forms.Label()
         Me.btnCreate = New System.Windows.Forms.Button()
+        Me.dtStart = New System.Windows.Forms.DateTimePicker()
+        Me.dtEnd = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.chkFilter = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'Timer1
@@ -44,7 +48,6 @@ Partial Class frmMain
         '
         'Label1
         '
-        Me.Label1.Anchor = System.Windows.Forms.AnchorStyles.Top
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(653, 22)
         Me.Label1.Name = "Label1"
@@ -54,11 +57,10 @@ Partial Class frmMain
         '
         'lvwOutcome
         '
-        Me.lvwOutcome.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lvwOutcome.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwOutcome.FullRowSelect = True
-        Me.lvwOutcome.Location = New System.Drawing.Point(15, 254)
+        Me.lvwOutcome.Location = New System.Drawing.Point(15, 270)
         Me.lvwOutcome.Name = "lvwOutcome"
         Me.lvwOutcome.Size = New System.Drawing.Size(1451, 242)
         Me.lvwOutcome.TabIndex = 1
@@ -67,28 +69,30 @@ Partial Class frmMain
         '
         'btnAddAppt
         '
-        Me.btnAddAppt.Location = New System.Drawing.Point(15, 205)
+        Me.btnAddAppt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnAddAppt.Location = New System.Drawing.Point(15, 221)
         Me.btnAddAppt.Name = "btnAddAppt"
-        Me.btnAddAppt.Size = New System.Drawing.Size(95, 21)
+        Me.btnAddAppt.Size = New System.Drawing.Size(96, 21)
         Me.btnAddAppt.TabIndex = 3
         Me.btnAddAppt.Text = "Add Reminder"
         Me.btnAddAppt.UseVisualStyleBackColor = True
         '
         'btnEditAppt
         '
-        Me.btnEditAppt.Location = New System.Drawing.Point(116, 205)
+        Me.btnEditAppt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnEditAppt.Location = New System.Drawing.Point(122, 221)
         Me.btnEditAppt.Name = "btnEditAppt"
-        Me.btnEditAppt.Size = New System.Drawing.Size(95, 21)
+        Me.btnEditAppt.Size = New System.Drawing.Size(90, 21)
         Me.btnEditAppt.TabIndex = 4
         Me.btnEditAppt.Text = "Edit Reminder"
         Me.btnEditAppt.UseVisualStyleBackColor = True
         '
         'btnDeleteAppt
         '
-        Me.btnDeleteAppt.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnDeleteAppt.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDeleteAppt.AutoSize = True
         Me.btnDeleteAppt.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteAppt.Location = New System.Drawing.Point(1365, 205)
+        Me.btnDeleteAppt.Location = New System.Drawing.Point(1365, 221)
         Me.btnDeleteAppt.Name = "btnDeleteAppt"
         Me.btnDeleteAppt.Size = New System.Drawing.Size(96, 23)
         Me.btnDeleteAppt.TabIndex = 5
@@ -98,7 +102,7 @@ Partial Class frmMain
         'btnEditOutcome
         '
         Me.btnEditOutcome.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnEditOutcome.Location = New System.Drawing.Point(15, 502)
+        Me.btnEditOutcome.Location = New System.Drawing.Point(15, 518)
         Me.btnEditOutcome.Name = "btnEditOutcome"
         Me.btnEditOutcome.Size = New System.Drawing.Size(95, 21)
         Me.btnEditOutcome.TabIndex = 6
@@ -116,8 +120,9 @@ Partial Class frmMain
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 238)
+        Me.Label3.Location = New System.Drawing.Point(12, 254)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(74, 13)
         Me.Label3.TabIndex = 8
@@ -125,12 +130,13 @@ Partial Class frmMain
         '
         'lvwReminder
         '
-        Me.lvwReminder.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.lvwReminder.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lvwReminder.FullRowSelect = True
         Me.lvwReminder.Location = New System.Drawing.Point(15, 38)
         Me.lvwReminder.Name = "lvwReminder"
-        Me.lvwReminder.Size = New System.Drawing.Size(1446, 161)
+        Me.lvwReminder.Size = New System.Drawing.Size(1446, 160)
         Me.lvwReminder.TabIndex = 9
         Me.lvwReminder.UseCompatibleStateImageBehavior = False
         Me.lvwReminder.View = System.Windows.Forms.View.Details
@@ -146,18 +152,60 @@ Partial Class frmMain
         '
         'btnCreate
         '
-        Me.btnCreate.Location = New System.Drawing.Point(576, 205)
+        Me.btnCreate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnCreate.Location = New System.Drawing.Point(295, 221)
         Me.btnCreate.Name = "btnCreate"
-        Me.btnCreate.Size = New System.Drawing.Size(131, 23)
+        Me.btnCreate.Size = New System.Drawing.Size(99, 21)
         Me.btnCreate.TabIndex = 11
         Me.btnCreate.Text = "Create Outcome"
         Me.btnCreate.UseVisualStyleBackColor = True
+        '
+        'dtStart
+        '
+        Me.dtStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.dtStart.Location = New System.Drawing.Point(630, 221)
+        Me.dtStart.Name = "dtStart"
+        Me.dtStart.Size = New System.Drawing.Size(123, 20)
+        Me.dtStart.TabIndex = 12
+        '
+        'dtEnd
+        '
+        Me.dtEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.dtEnd.Location = New System.Drawing.Point(781, 221)
+        Me.dtEnd.Name = "dtEnd"
+        Me.dtEnd.Size = New System.Drawing.Size(123, 20)
+        Me.dtEnd.TabIndex = 13
+        '
+        'Label5
+        '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(759, 221)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(16, 13)
+        Me.Label5.TabIndex = 15
+        Me.Label5.Text = "to"
+        '
+        'chkFilter
+        '
+        Me.chkFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.chkFilter.AutoSize = True
+        Me.chkFilter.Location = New System.Drawing.Point(920, 221)
+        Me.chkFilter.Name = "chkFilter"
+        Me.chkFilter.Size = New System.Drawing.Size(102, 17)
+        Me.chkFilter.TabIndex = 16
+        Me.chkFilter.Text = "Filter Outcomes "
+        Me.chkFilter.UseVisualStyleBackColor = True
         '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1493, 526)
+        Me.ClientSize = New System.Drawing.Size(1493, 542)
+        Me.Controls.Add(Me.chkFilter)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.dtEnd)
+        Me.Controls.Add(Me.dtStart)
         Me.Controls.Add(Me.btnCreate)
         Me.Controls.Add(Me.lblVersion)
         Me.Controls.Add(Me.lvwReminder)
@@ -190,4 +238,8 @@ Partial Class frmMain
     Friend WithEvents lvwReminder As ListView
     Friend WithEvents lblVersion As Label
     Friend WithEvents btnCreate As Button
+    Friend WithEvents dtStart As DateTimePicker
+    Friend WithEvents dtEnd As DateTimePicker
+    Friend WithEvents Label5 As Label
+    Friend WithEvents chkFilter As CheckBox
 End Class

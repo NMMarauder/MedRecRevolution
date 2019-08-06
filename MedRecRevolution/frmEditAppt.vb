@@ -93,6 +93,7 @@
             txtLastText.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(11).Text
             txtNumTexts.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(12).Text
             txtMRN.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(13).Text
+            txtNote.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(14).Text
 
         Catch ex As Exception
             WriteToLog("frmEdit_Load on frmEditAppt - Exception Follows: " & ex.Message)
@@ -188,6 +189,7 @@
             Dim numtxts As Integer = 0
             If txtNumTexts.Text <> "" Then numtxts = CInt(txtNumTexts.Text)
 
+
             'B.) Additional validations of data
             'Reminder Time must be Goldilocks (not too early or late) -  Must be after 16:00 on the day before the scheduled reconcile or before 16:00 on the day of scheduled reconcile
             If sday <> "" And rday <> "" Then
@@ -227,13 +229,16 @@
                 End If
             End If
 
+            Dim Note As String = ""
+            Note = txtNote.Text
+
             If msg = "" Then
                 Dim DupeFound As Integer = 0
                 Dim alertUser As Boolean = False
                 If checkName Or checkPhone Then IsDuplicate(mnum, fname, lname, group, DupeFound, frmMain.lvwReminder)
                 If DupeFound > 0 Then alertUser = True
                 If Not alertUser Then
-                    UpdateAppt(ID, fname, lname, group, mnum, language, sday, rday, rtime, lasttxt, numtxts, Clinic, MRN, Shift)
+                    UpdateAppt(ID, fname, lname, group, mnum, language, sday, rday, rtime, lasttxt, numtxts, Clinic, MRN, Shift, Note)
                     frmMain.lvwReminder.Items.Clear()
                     frmMain.LoadApptStructFromDB()
                     frmMain.LoadApptList(frmMain.lvwReminder)
@@ -285,6 +290,7 @@
         cboLanguage.SelectedItem = ""
         cboShift.Text = ""
         cboShift.SelectedItem = ""
+        txtNote.ResetText()
         Return True
 
     End Function

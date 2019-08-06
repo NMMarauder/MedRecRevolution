@@ -4,11 +4,21 @@
         Me.dtReconcile.Format = DateTimePickerFormat.Custom
         Me.dtReconcile.CustomFormat = "dd MMM yyyy"
     End Sub
+    Private Sub dtDarwin_ValueChanged(sender As Object, e As EventArgs) Handles dtDarwin.ValueChanged
+        Me.dtDarwin.Format = DateTimePickerFormat.Custom
+        Me.dtDarwin.CustomFormat = "dd MMM yyyy"
+    End Sub
 
     Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         dtReconcile.CustomFormat = " "
         dtReconcile.Format = DateTimePickerFormat.Custom
         dtReconcile.Update()
+    End Sub
+
+    Private Sub btnClearDarwin_Click(sender As Object, e As EventArgs) Handles btnClearDarwin.Click
+        dtDarwin.CustomFormat = " "
+        dtDarwin.Format = DateTimePickerFormat.Custom
+        dtDarwin.Update()
     End Sub
 
     Private Sub frmEditOutcome_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -103,13 +113,22 @@
             txtNumTexts.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(12).Text
 
 
-            'Date reconcile happened
+            'Date reconcile happened - Sheet
             dtReconcile.CustomFormat = "dd MMM yyyy"
             dtReconcile.Format = DateTimePickerFormat.Custom
             If frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text <> "" Then
                 dtReconcile.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text
             Else
                 dtReconcile.CustomFormat = " "
+            End If
+
+            'Date reconcile happened - Darwin
+            dtDarwin.CustomFormat = "dd MMM yyyy"
+            dtDarwin.Format = DateTimePickerFormat.Custom
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(14).Text <> "" Then
+                dtDarwin.Value = frmMain.lvwOutcome.SelectedItems(0).SubItems(14).Text
+            Else
+                dtDarwin.CustomFormat = " "
             End If
 
 
@@ -125,18 +144,18 @@
                 cboHappened.Items.Add("No-Other Issue")
                 cboHappened.Items.Add("Yes-W/o text reminder")
             End If
-            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(14).Text
+            str = frmMain.lvwOutcome.SelectedItems(0).SubItems(15).Text
             cboHappened.SelectedIndex = cboHappened.FindString(str)
             'cboHappened.SelectedIndex = CInt(frmMain.lvwOutcome.SelectedItems(0).SubItems(13).Text)
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(15).Text = "1" Then chkAll.Checked = True
-            txtNumMedsBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(16).Text
-            txtUsefulList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(17).Text
-            txtTotalList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(18).Text
-            txtNumPhotosBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text
-            txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text
-            If frmMain.lvwOutcome.SelectedItems(0).SubItems(21).Text = "1" Then chkTech.Checked = True
-            rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(22).Text
-            txtMRN.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(23).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(16).Text = "1" Then chkAll.Checked = True
+            txtNumMedsBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(17).Text
+            txtUsefulList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(18).Text
+            txtTotalList.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(19).Text
+            txtNumPhotosBrought.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(20).Text
+            txtTotalPhotos.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(21).Text
+            If frmMain.lvwOutcome.SelectedItems(0).SubItems(22).Text = "1" Then chkTech.Checked = True
+            rtComment.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(23).Text
+            txtMRN.Text = frmMain.lvwOutcome.SelectedItems(0).SubItems(24).Text
 
         Catch ex As Exception
             WriteToLog("frmEditOutcome_Load on frmEditOutcome - Exception Follows: " & ex.Message)
@@ -159,12 +178,19 @@
 
                 Dim rday As String = ""
                 Dim sday As String = ""
+                Dim darwinDay As String = ""
+
                 'Check date reconcile not before dt scheduled
                 If dtReconcile.Text <> " " Then
                     rday = dtReconcile.Value.ToString("MM/dd/yyyy")
                 End If
                 If dtScheduled.Text <> " " Then
                     sday = dtScheduled.Value.ToString("MM/dd/yyyy")
+                End If
+
+                'Get Darwin Date
+                If dtDarwin.Text <> " " Then
+                    darwinDay = dtDarwin.Value.ToString("MM/dd/yyyy")
                 End If
 
                 Dim answer As Integer
@@ -234,7 +260,7 @@
 
                 'Update outcome table in DB  - Where ID & scheduled date matches   
                 If updateReady Then
-                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList, MRN, Shift)
+                    UpdateOutcome(ID, sday, rday, happened, techProb, medsbrought, picsBrought, totalpics, comment, allClaim, useFulList, TotalList, MRN, Shift, darwinDay)
 
                     'Update outcomes list
                     frmMain.lvwOutcome.Items.Clear()
@@ -278,6 +304,8 @@
         txtNumTexts.ResetText()
         dtReconcile.CustomFormat = " "
         dtReconcile.Format = DateTimePickerFormat.Custom
+        dtDarwin.CustomFormat = " "
+        dtDarwin.Format = DateTimePickerFormat.Custom
         cboHappened.ResetText()
         cboHappened.SelectedItem = Nothing
         chkTech.Checked = False
@@ -295,4 +323,6 @@
         Return True
 
     End Function
+
+
 End Class

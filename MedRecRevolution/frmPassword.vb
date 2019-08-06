@@ -63,6 +63,10 @@ Public Class FrmPassword
                     End Select
                 End While
 
+                lvwSentToday.Columns.Add("Mobile")
+                lvwSentToday.Columns.Add("Num txts Sent")
+                txtAlertCount.Text = "0"
+
                 frmMain.Show()
                 Me.Hide()
             Catch ex As System.Security.Cryptography.CryptographicException

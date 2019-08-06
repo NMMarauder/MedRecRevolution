@@ -7,6 +7,15 @@ Public Class frmMain
     Private EditOut As frmEditOutcome
     Private CreateOut As frmCreateOutcome
 
+    Private Sub dtReminder_valueChanged(sender As Object, e As EventArgs) Handles dtStart.ValueChanged
+        Me.dtStart.Format = DateTimePickerFormat.Custom
+        Me.dtStart.CustomFormat = "dd MMM yyyy"
+    End Sub
+
+    Private Sub dtScheduled_valueChanged(sender As Object, e As EventArgs) Handles dtEnd.ValueChanged
+        Me.dtEnd.Format = DateTimePickerFormat.Custom
+        Me.dtEnd.CustomFormat = "dd MMM yyyy"
+    End Sub
 
     'The two main data structures that hold everything in the database
     Structure Appointment
@@ -24,6 +33,7 @@ Public Class frmMain
         Dim NumTextsSent As Integer
         Dim MRN As String
         Dim Shift As String
+        Dim Note As String
     End Structure
     Dim Appointments As Appointment()
     Structure Outcome
@@ -40,6 +50,7 @@ Public Class frmMain
         Dim LastText As DateTime
         Dim NumTextsSent As Integer
         Dim ReconcileDate As Date
+        Dim DarwinDate As Date
         Dim Happened As Integer
         Dim PhoneProblem As Integer
         Dim NumMeds As Integer
@@ -67,11 +78,14 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        'SoftwareVersion = "EDITOR"
-        SoftwareVersion = "SERVER"
-        lblVersion.Text = SoftwareVersion & " VERSION 2.6"
+        SoftwareVersion = "EDITOR"
+        'SoftwareVersion = "SERVER"
+        lblVersion.Text = SoftwareVersion & " VERSION 3.14  Build Date: 2 Apr 2019"
 
-
+        '3.1 added darwin date, added date filtering, added group 0 identify
+        '3.12 fixed bug that had columns in listview off after an sms went out
+        '3.13 added checks to keep a number from being texted more than once in 24 hours.
+        '3.14 fixed missed so that it didn't send text too late (missing an = sign)
 
         Dim CurrTime As String = System.DateTime.Now.ToString("dd MMM yyyy HH:mm:ss")
         Dim DayName As String = DateTime.Now.DayOfWeek.ToString
@@ -95,11 +109,11 @@ Public Class frmMain
         '*************************************************************************************************
 
         If SoftwareVersion = "SERVER" Then
-            'At 1 AM move the group zero (Patients not recieving texts) to the outcomes list
-            'If System.DateTime.Now.Hour = 1 And System.DateTime.Now.Minute = 1 And System.DateTime.Now.Second = 1 Then
-            ' Notify_Grp_0()
-            ' Notify_Grp_0_missed()
-            'End If
+            'At 1 AM  clear the lists that keep messages from being sent too many times in one day
+            If System.DateTime.Now.Hour = 1 And System.DateTime.Now.Minute = 1 And System.DateTime.Now.Second = 1 Then
+                FrmPassword.txtAlertCount.Text = "0"
+                FrmPassword.lvwSentToday.Items.Clear()
+            End If
 
             'Every 2 minutes check for texts to send.  
             ' *Missed* finds patients that should have been sent a text hours ago. (In the case that this application wasn't running/working at the time)
@@ -129,6 +143,8 @@ Public Class frmMain
         lvwReminder.Columns.Add("Last Text At")
         lvwReminder.Columns.Add("# of Texts So Far")
         lvwReminder.Columns.Add("MRN")
+        lvwReminder.Columns.Add("Note")
+
 
         lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
 
@@ -146,7 +162,8 @@ Public Class frmMain
         lvwOutcome.Columns.Add("Reminder Time")
         lvwOutcome.Columns.Add("Last Text At")
         lvwOutcome.Columns.Add("# Texts So Far")
-        lvwOutcome.Columns.Add("Actual Reconcile Date")
+        lvwOutcome.Columns.Add("Sheet Reconcile Date")
+        lvwOutcome.Columns.Add("Darwin Reconcile Date")
         lvwOutcome.Columns.Add("Happened?")
         lvwOutcome.Columns.Add("Claims All")
         lvwOutcome.Columns.Add("# Meds Brought")
@@ -157,7 +174,7 @@ Public Class frmMain
         lvwOutcome.Columns.Add("Phone Problem")
         lvwOutcome.Columns.Add("Comments")
         lvwOutcome.Columns.Add("MRN")
-        lvwOutcome.Columns.Add("")
+        'lvwOutcome.Columns.Add("")
 
         LoadApptStructFromDB()
         LoadApptList(lvwReminder)
@@ -167,6 +184,11 @@ Public Class frmMain
         'lvwOutcome.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         lvwReminder.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
         lvwOutcome.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+
+        dtStart.Format = DateTimePickerFormat.Custom
+        dtStart.CustomFormat = " "
+        dtEnd.Format = DateTimePickerFormat.Custom
+        dtEnd.CustomFormat = " "
 
     End Sub
 
@@ -226,7 +248,8 @@ Public Class frmMain
                     If data_reader.GetValue(21).ToString <> "" Then Outcomes(count).Clinic = CStr(data_reader.GetValue(21))         'Clinic
                     If data_reader.GetValue(22).ToString <> "" Then Outcomes(count).TotalList = CInt(data_reader.GetValue(22))      'Total List
                     If data_reader.GetValue(23).ToString <> "" Then Outcomes(count).MRN = CStr(data_reader.GetValue(23))            'MRN
-                    If data_reader.GetValue(24).ToString <> "" Then Outcomes(count).Shift = CStr(data_reader.GetValue(24))           'Shift
+                    If data_reader.GetValue(24).ToString <> "" Then Outcomes(count).Shift = CStr(data_reader.GetValue(24))          'Shift
+                    If data_reader.GetValue(25).ToString <> "" Then Outcomes(count).DarwinDate = CStr(data_reader.GetValue(25))     'DarwinDate
                     count = count + 1
                 End While
             End If
@@ -253,12 +276,32 @@ Public Class frmMain
         stopWatch.Start()
         Dim count As Integer = 0
         Dim NoDate As DateTime = DateTime.MinValue
+        Dim startDay As String = ""
+        Dim endDay As String = ""
 
         Try
+            If chkFilter.Checked = True Then
+                'Get dates to filter by
+                If dtStart.Text <> " " Then
+                    startDay = dtStart.Value.ToString("MM/dd/yyyy")
+                End If
+                If dtEnd.Text <> " " Then
+                    endDay = dtEnd.Value.ToString("MM/dd/yyyy")
+                End If
+            End If
+
+
             'add data to listview
             If Outcomes.Count > 0 Then
                 While count < Outcomes.Count - 1
                     Dim newitem As New ListViewItem()
+
+                    If chkFilter.Checked = True Then
+                        If Outcomes(count).ScheduledDay = NoDate Or (Outcomes(count).ScheduledDay < startDay Or Outcomes(count).ScheduledDay > endDay) Then
+                            'Debug.Print("wtf")
+                            GoTo skipItem
+                        End If
+                    End If
 
                     newitem.Text = Outcomes(count).Id                   'ID
                     newitem.SubItems.Add(Outcomes(count).FirstName)     'First Name
@@ -297,6 +340,13 @@ Public Class frmMain
                     Else
                         newitem.SubItems.Add(Outcomes(count).ReconcileDate) 'Reconcile Date
                     End If
+
+                    If Outcomes(count).DarwinDate = NoDate Then
+                        newitem.SubItems.Add("")
+                    Else
+                        newitem.SubItems.Add(Outcomes(count).DarwinDate) 'Darwin Date
+                    End If
+
                     ' newitem.SubItems.Add(Outcomes(count).Happened)      'Happened
                     Select Case Outcomes(count).Happened
                         Case 0
@@ -331,7 +381,9 @@ Public Class frmMain
                     newitem.SubItems.Add(Outcomes(count).MRN)           'MRN
 
                     lvw.Items.Add(newitem)
+skipItem:
                     count = count + 1
+
                 End While
             End If
 
@@ -402,6 +454,9 @@ Public Class frmMain
                     If data_reader.GetValue(11).ToString <> "" Then Appointments(count).Clinic = CStr(data_reader.GetValue(11))         'Clinic
                     If data_reader.GetValue(12).ToString <> "" Then Appointments(count).MRN = CStr(data_reader.GetValue(12))            'MRN
                     If data_reader.GetValue(13).ToString <> "" Then Appointments(count).Shift = CStr(data_reader.GetValue(13))          'Shift
+                    If data_reader.GetValue(14).ToString <> "" Then Appointments(count).Note = CStr(data_reader.GetValue(14))          'Note
+
+
                     count = count + 1
                 End While
             End If
@@ -440,6 +495,7 @@ Public Class frmMain
                     newitem.SubItems.Add(Appointments(count).Clinic)        'Clinic
                     newitem.SubItems.Add(Appointments(count).Shift)         'Shift
                     newitem.SubItems.Add(Appointments(count).Group)         'Group
+                    If (Appointments(count).Group = "0") Then newitem.BackColor = Color.Yellow
                     newitem.SubItems.Add(Appointments(count).Language)      'Language
                     newitem.SubItems.Add(Appointments(count).Mobile)        'Mobile
                     If Appointments(count).ScheduledDay = NoDate Then
@@ -464,6 +520,8 @@ Public Class frmMain
                     End If
                     newitem.SubItems.Add(Appointments(count).NumTextsSent) 'NumTextsSent
                     newitem.SubItems.Add(Appointments(count).MRN)           'MRN
+                    newitem.SubItems.Add(Appointments(count).Note)          'Note
+
                     lvw.Items.Add(newitem)
                     count = count + 1
                 End While
@@ -618,13 +676,12 @@ Public Class frmMain
             'This ugly SQL stems from the text field used to hold the date in the database. The comparison operators don't work right on string fields
             'when they hold dates.  So this SQL was created to determine which dates are actually earlier than today.  It compares the year, then month, 
             'then day.  
-            Dim str As String = "Select * FROM (
-                                        Select * FROM(
-                                               Select * FROM Appts WHERE  Right([rday1], 4) <= Right('" & today1 & "', 4)
-                                        ) Where
-                                               (Left([rday1], 2) <= Left('" & today1 & "',2))
-                                ) Where ((Mid([rday1], 4, 2) <= Mid('" & today1 & "', 4, 2)) And isdate([rday1])=true)"
-
+            'Dim str As String = "Select * FROM (
+            '                                       Select * FROM(
+            '                                           Select * FROM Appts WHERE  Right([rday1], 4) <= Right('" & today1 & "', 4)
+            '                                       ) Where (Left([rday1], 2) <= Left('" & today1 & "',2))
+            '                    ) Where ((Mid([rday1], 4, 2) <= Mid('" & today1 & "', 4, 2)) And isdate([rday1])=true)"
+            Dim str As String = "Select * FROM (Select * FROM(Select * FROM Appts WHERE  Right([rday1], 4) <= Right('" & today1 & "', 4)) Where (Left([rday1], 2) <= Left('" & today1 & "',2))) Where ((Mid([rday1], 4, 2) <= Mid('" & today1 & "', 4, 2)) And isdate([rday1])=true)"
 
 
 
@@ -656,12 +713,15 @@ Public Class frmMain
                     Dim EventHappened As Integer = 7
                     Dim DTnow As Date = System.DateTime.Now
                     If RemindIsDate Then
+
                         Dim diff As TimeSpan = DTnow - RemindDT
-                        If (diff.Days > 1 Or diff.Hours > HrsLateUpperLimit) Then
+                        'Debug.Print(diff.Days.ToString)
+                        'Debug.Print(diff.Hours.ToString)
+                        If (diff.Days >= 1 Or diff.Hours > HrsLateUpperLimit) Then
                             EventHappened = 0
                             comment = "At " & CStr(DTnow) & " the system determined that this reminder was missed.  "
                         End If
-                        If diff.Hours < 0 Then Exit Sub ' added when the SQL statement was redone.  Don't send normal texts from this sub
+                        If diff.Hours <= 0 Then GoTo SkipLoop ' added when the SQL statement was redone.  Don't send normal texts from this sub
                     End If
 
 
@@ -693,7 +753,7 @@ Public Class frmMain
                     newitem.SubItems.Add(fname)         '1
                     newitem.SubItems.Add(lname)         '2
                     newitem.SubItems.Add(clinic)        '3
-                    newitem.SubItems.Add(Shift)        '4
+                    newitem.SubItems.Add(Shift)         '4
                     newitem.SubItems.Add(group)         '5
                     newitem.SubItems.Add(language)      '6
                     newitem.SubItems.Add(mnum)          '7
@@ -706,7 +766,8 @@ Public Class frmMain
                         newitem.SubItems.Add(lasttxt)       '11
                     End If
                     newitem.SubItems.Add(CStr(numtxts)) '12
-                    newitem.SubItems.Add("") ' actual rec date
+                    newitem.SubItems.Add("") ' actual rec date (aka Sheet Date)
+                    newitem.SubItems.Add("") ' darwin reconcile date 
                     'newitem.SubItems.Add(EventHappened) 'Happened - set to staff issue by default
                     Select Case EventHappened
                         Case 0
@@ -742,7 +803,7 @@ Public Class frmMain
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN, Shift)
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN, Shift, "")
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
@@ -759,7 +820,8 @@ Public Class frmMain
                         Twilio_Text(mnum, sms_msg)
                     End If
                     'update Appts DB table - to reflect that the text went out
-                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN, Shift)
+                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN, Shift, "")
+SkipLoop:
 
                 End While
 
@@ -875,6 +937,7 @@ Public Class frmMain
                     End If
                     newitem.SubItems.Add(CStr(numtxts)) '12
                     newitem.SubItems.Add("") ' actual rec date
+                    newitem.SubItems.Add("") 'darwin reconcile date
                     'newitem.SubItems.Add(EventHappened) 'Happened - set to staff issue by default
                     Select Case EventHappened
                         Case 0
@@ -910,7 +973,7 @@ Public Class frmMain
                     lvwOutcome.Items.Add(newitem)
 
                     'Add this to the Outcomes DB table
-                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN, Shift)
+                    InsertInOutcomesTable(Id, language, fname, lname, group, mnum, sday, rday1, rtime1, lasttxt, numtxts, "", EventHappened, "", "", "", "", comment, "", "", clinic, "", MRN, Shift, "")
 
                     'Blank out listview columns sday rday1 rtime1
                     For Each oItem As ListViewItem In lvwReminder.Items
@@ -927,7 +990,7 @@ Public Class frmMain
                         'MsgBox("Text sent to " & fname & " " & lname & " at " & mnum)
                     End If
                     'update Appts DB table - to reflect that the text went out
-                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN, Shift)
+                    UpdateAppt(Id, fname, lname, group, mnum, language, "", "", "", lasttxt, numtxts, clinic, MRN, Shift, "")
 
                 End While
 
@@ -958,5 +1021,13 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub chkFilter_CheckedChanged(sender As Object, e As EventArgs) Handles chkFilter.CheckedChanged
+
+        'Reload the list because the filter status is changed
+        lvwOutcome.Items.Clear()
+        LoadOutcomeStructFromDB()
+        LoadOutcomeList(lvwOutcome)
+
+    End Sub
 End Class
 

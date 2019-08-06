@@ -47,13 +47,15 @@ Partial Class frmEditAppt
         Me.Label5 = New System.Windows.Forms.Label()
         Me.cboShift = New System.Windows.Forms.ComboBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.lblRTime = New System.Windows.Forms.Label()
         Me.lblReminder = New System.Windows.Forms.Label()
         Me.lblScheduled = New System.Windows.Forms.Label()
         Me.cboRTime = New System.Windows.Forms.ComboBox()
         Me.dtReminder = New System.Windows.Forms.DateTimePicker()
         Me.dtScheduled = New System.Windows.Forms.DateTimePicker()
-        Me.btnClear = New System.Windows.Forms.Button()
+        Me.txtNote = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -209,7 +211,7 @@ Partial Class frmEditAppt
         '
         'btnSave
         '
-        Me.btnSave.Location = New System.Drawing.Point(874, 142)
+        Me.btnSave.Location = New System.Drawing.Point(877, 209)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(73, 24)
         Me.btnSave.TabIndex = 14
@@ -218,7 +220,7 @@ Partial Class frmEditAppt
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(951, 142)
+        Me.btnCancel.Location = New System.Drawing.Point(954, 209)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(73, 24)
         Me.btnCancel.TabIndex = 15
@@ -274,6 +276,15 @@ Partial Class frmEditAppt
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Dates"
         '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(150, 67)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(86, 21)
+        Me.btnClear.TabIndex = 40
+        Me.btnClear.Text = "Clear Dates"
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
         'lblRTime
         '
         Me.lblRTime.AutoSize = True
@@ -325,20 +336,30 @@ Partial Class frmEditAppt
         Me.dtScheduled.Size = New System.Drawing.Size(123, 20)
         Me.dtScheduled.TabIndex = 34
         '
-        'btnClear
+        'txtNote
         '
-        Me.btnClear.Location = New System.Drawing.Point(150, 67)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(86, 21)
-        Me.btnClear.TabIndex = 40
-        Me.btnClear.Text = "Clear Dates"
-        Me.btnClear.UseVisualStyleBackColor = True
+        Me.txtNote.Location = New System.Drawing.Point(674, 97)
+        Me.txtNote.Multiline = True
+        Me.txtNote.Name = "txtNote"
+        Me.txtNote.Size = New System.Drawing.Size(353, 102)
+        Me.txtNote.TabIndex = 47
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(671, 81)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(30, 13)
+        Me.Label6.TabIndex = 48
+        Me.Label6.Text = "Note"
         '
         'frmEditAppt
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1044, 182)
+        Me.ClientSize = New System.Drawing.Size(1073, 245)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txtNote)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.cboShift)
@@ -407,4 +428,6 @@ Partial Class frmEditAppt
     Friend WithEvents cboRTime As ComboBox
     Friend WithEvents dtReminder As DateTimePicker
     Friend WithEvents dtScheduled As DateTimePicker
+    Friend WithEvents txtNote As TextBox
+    Friend WithEvents Label6 As Label
 End Class

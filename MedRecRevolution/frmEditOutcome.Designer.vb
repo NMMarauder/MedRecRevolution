@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmEditOutcome
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmEditOutcome
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.btnSave = New System.Windows.Forms.Button()
@@ -74,6 +74,9 @@ Partial Class frmEditOutcome
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtNumMedsBrought = New System.Windows.Forms.TextBox()
+        Me.dtDarwin = New System.Windows.Forms.DateTimePicker()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.btnClearDarwin = New System.Windows.Forms.Button()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -223,7 +226,6 @@ Partial Class frmEditOutcome
         '
         'dtReminder
         '
-        Me.dtReminder.Enabled = False
         Me.dtReminder.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtReminder.Location = New System.Drawing.Point(270, 77)
         Me.dtReminder.Name = "dtReminder"
@@ -232,7 +234,6 @@ Partial Class frmEditOutcome
         '
         'dtScheduled
         '
-        Me.dtScheduled.Enabled = False
         Me.dtScheduled.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
         Me.dtScheduled.Location = New System.Drawing.Point(126, 77)
         Me.dtScheduled.Name = "dtScheduled"
@@ -366,7 +367,7 @@ Partial Class frmEditOutcome
         Me.GroupBox2.Controls.Add(Me.Label9)
         Me.GroupBox2.Controls.Add(Me.txtNumPhotosBrought)
         Me.GroupBox2.Controls.Add(Me.chkTech)
-        Me.GroupBox2.Location = New System.Drawing.Point(36, 493)
+        Me.GroupBox2.Location = New System.Drawing.Point(36, 508)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(332, 122)
         Me.GroupBox2.TabIndex = 122
@@ -404,7 +405,7 @@ Partial Class frmEditOutcome
         Me.GroupBox1.Controls.Add(Me.txtTotalList)
         Me.GroupBox1.Controls.Add(Me.Label10)
         Me.GroupBox1.Controls.Add(Me.txtUsefulList)
-        Me.GroupBox1.Location = New System.Drawing.Point(36, 380)
+        Me.GroupBox1.Location = New System.Drawing.Point(36, 395)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(332, 85)
         Me.GroupBox1.TabIndex = 121
@@ -430,7 +431,7 @@ Partial Class frmEditOutcome
         'chkAll
         '
         Me.chkAll.AutoSize = True
-        Me.chkAll.Location = New System.Drawing.Point(34, 265)
+        Me.chkAll.Location = New System.Drawing.Point(47, 285)
         Me.chkAll.Name = "chkAll"
         Me.chkAll.Size = New System.Drawing.Size(228, 17)
         Me.chkAll.TabIndex = 17
@@ -469,18 +470,17 @@ Partial Class frmEditOutcome
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(35, 177)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(93, 13)
+        Me.Label4.Size = New System.Drawing.Size(139, 13)
         Me.Label4.TabIndex = 118
-        Me.Label4.Text = "Date of Reconcile"
+        Me.Label4.Text = "Date of Reconcile on Sheet"
         '
         'dtReconcile
         '
         Me.dtReconcile.Location = New System.Drawing.Point(38, 193)
-        Me.dtReconcile.MaxDate = New Date(2018, 12, 31, 0, 0, 0, 0)
-        Me.dtReconcile.MinDate = New Date(2018, 1, 1, 0, 0, 0, 0)
         Me.dtReconcile.Name = "dtReconcile"
         Me.dtReconcile.Size = New System.Drawing.Size(179, 20)
         Me.dtReconcile.TabIndex = 16
+        Me.dtReconcile.Value = New Date(2019, 1, 10, 0, 0, 0, 0)
         '
         'Label6
         '
@@ -519,7 +519,7 @@ Partial Class frmEditOutcome
         '
         Me.GroupBox3.Controls.Add(Me.Label13)
         Me.GroupBox3.Controls.Add(Me.txtNumMedsBrought)
-        Me.GroupBox3.Location = New System.Drawing.Point(38, 306)
+        Me.GroupBox3.Location = New System.Drawing.Point(38, 321)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(332, 52)
         Me.GroupBox3.TabIndex = 122
@@ -542,11 +542,40 @@ Partial Class frmEditOutcome
         Me.txtNumMedsBrought.Size = New System.Drawing.Size(47, 20)
         Me.txtNumMedsBrought.TabIndex = 18
         '
+        'dtDarwin
+        '
+        Me.dtDarwin.Location = New System.Drawing.Point(36, 248)
+        Me.dtDarwin.Name = "dtDarwin"
+        Me.dtDarwin.Size = New System.Drawing.Size(179, 20)
+        Me.dtDarwin.TabIndex = 128
+        Me.dtDarwin.Value = New Date(2019, 1, 10, 0, 0, 0, 0)
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(35, 229)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(140, 13)
+        Me.Label11.TabIndex = 129
+        Me.Label11.Text = "Date of Reconcile in Darwin"
+        '
+        'btnClearDarwin
+        '
+        Me.btnClearDarwin.Location = New System.Drawing.Point(230, 246)
+        Me.btnClearDarwin.Name = "btnClearDarwin"
+        Me.btnClearDarwin.Size = New System.Drawing.Size(82, 22)
+        Me.btnClearDarwin.TabIndex = 130
+        Me.btnClearDarwin.Text = "<- Clear"
+        Me.btnClearDarwin.UseVisualStyleBackColor = True
+        '
         'frmEditOutcome
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(845, 672)
+        Me.Controls.Add(Me.btnClearDarwin)
+        Me.Controls.Add(Me.Label11)
+        Me.Controls.Add(Me.dtDarwin)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.cboShift)
@@ -655,4 +684,7 @@ Partial Class frmEditOutcome
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents Label13 As Label
     Friend WithEvents txtNumMedsBrought As TextBox
+    Friend WithEvents dtDarwin As DateTimePicker
+    Friend WithEvents Label11 As Label
+    Friend WithEvents btnClearDarwin As Button
 End Class

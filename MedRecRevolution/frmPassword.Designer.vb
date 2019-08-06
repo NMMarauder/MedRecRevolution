@@ -34,6 +34,8 @@ Partial Class FrmPassword
         Me.cboLanguageName = New System.Windows.Forms.ComboBox()
         Me.cboLanguageText = New System.Windows.Forms.ComboBox()
         Me.cboClinics = New System.Windows.Forms.ComboBox()
+        Me.lvwSentToday = New System.Windows.Forms.ListView()
+        Me.txtAlertCount = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'txtPassword
@@ -134,11 +136,28 @@ Partial Class FrmPassword
         Me.cboClinics.Size = New System.Drawing.Size(122, 21)
         Me.cboClinics.TabIndex = 11
         '
+        'lvwSentToday
+        '
+        Me.lvwSentToday.Location = New System.Drawing.Point(315, 90)
+        Me.lvwSentToday.Name = "lvwSentToday"
+        Me.lvwSentToday.Size = New System.Drawing.Size(215, 55)
+        Me.lvwSentToday.TabIndex = 12
+        Me.lvwSentToday.UseCompatibleStateImageBehavior = False
+        '
+        'txtAlertCount
+        '
+        Me.txtAlertCount.Location = New System.Drawing.Point(320, 169)
+        Me.txtAlertCount.Name = "txtAlertCount"
+        Me.txtAlertCount.Size = New System.Drawing.Size(138, 20)
+        Me.txtAlertCount.TabIndex = 13
+        '
         'FrmPassword
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(253, 78)
+        Me.ClientSize = New System.Drawing.Size(238, 77)
+        Me.Controls.Add(Me.txtAlertCount)
+        Me.Controls.Add(Me.lvwSentToday)
         Me.Controls.Add(Me.cboClinics)
         Me.Controls.Add(Me.cboLanguageText)
         Me.Controls.Add(Me.cboLanguageName)
@@ -172,4 +191,6 @@ Partial Class FrmPassword
     Friend WithEvents cboLanguageName As ComboBox
     Friend WithEvents cboLanguageText As ComboBox
     Friend WithEvents cboClinics As ComboBox
+    Friend WithEvents lvwSentToday As ListView
+    Friend WithEvents txtAlertCount As TextBox
 End Class

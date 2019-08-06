@@ -46,6 +46,8 @@ Partial Class frmAdd
         Me.Label1 = New System.Windows.Forms.Label()
         Me.lblShift = New System.Windows.Forms.Label()
         Me.cboShift = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtNote = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'txtFirst
@@ -201,7 +203,7 @@ Partial Class frmAdd
         '
         'btnAdd
         '
-        Me.btnAdd.Location = New System.Drawing.Point(802, 86)
+        Me.btnAdd.Location = New System.Drawing.Point(794, 194)
         Me.btnAdd.Name = "btnAdd"
         Me.btnAdd.Size = New System.Drawing.Size(82, 26)
         Me.btnAdd.TabIndex = 12
@@ -210,7 +212,7 @@ Partial Class frmAdd
         '
         'btnCancel
         '
-        Me.btnCancel.Location = New System.Drawing.Point(890, 86)
+        Me.btnCancel.Location = New System.Drawing.Point(882, 194)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(82, 26)
         Me.btnCancel.TabIndex = 13
@@ -250,11 +252,30 @@ Partial Class frmAdd
         Me.cboShift.Size = New System.Drawing.Size(104, 21)
         Me.cboShift.TabIndex = 5
         '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(419, 70)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(30, 13)
+        Me.Label6.TabIndex = 416
+        Me.Label6.Text = "Note"
+        '
+        'txtNote
+        '
+        Me.txtNote.Location = New System.Drawing.Point(422, 86)
+        Me.txtNote.Multiline = True
+        Me.txtNote.Name = "txtNote"
+        Me.txtNote.Size = New System.Drawing.Size(550, 102)
+        Me.txtNote.TabIndex = 415
+        '
         'frmAdd
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(992, 128)
+        Me.ClientSize = New System.Drawing.Size(1013, 229)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.txtNote)
         Me.Controls.Add(Me.cboShift)
         Me.Controls.Add(Me.lblShift)
         Me.Controls.Add(Me.Label1)
@@ -312,4 +333,6 @@ Partial Class frmAdd
     Friend WithEvents Label1 As Label
     Friend WithEvents lblShift As Label
     Friend WithEvents cboShift As ComboBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents txtNote As TextBox
 End Class

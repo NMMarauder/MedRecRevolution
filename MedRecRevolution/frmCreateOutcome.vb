@@ -4,6 +4,10 @@
         Me.dtSchReconcile.Format = DateTimePickerFormat.Custom
         Me.dtSchReconcile.CustomFormat = "dd MMM yyyy"
     End Sub
+    Private Sub dtDarwin_ValueChanged(sender As Object, e As EventArgs) Handles dtDarwin.ValueChanged
+        Me.dtDarwin.Format = DateTimePickerFormat.Custom
+        Me.dtDarwin.CustomFormat = "dd MMM yyyy"
+    End Sub
 
     Private Sub frmEdit_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Try
@@ -56,6 +60,14 @@
             Else
                 dtSchReconcile.CustomFormat = " "
             End If
+
+            'blank darwin & sheet dates
+            dtDarwin.Format = DateTimePickerFormat.Custom
+            dtDarwin.CustomFormat = " "
+            dtActual.Format = DateTimePickerFormat.Custom
+            dtActual.CustomFormat = " "
+
+
 
             'mobile
             txtMRN.Text = frmMain.lvwReminder.SelectedItems(0).SubItems(13).Text
@@ -123,12 +135,20 @@
 
             '9. actual Day
             Dim aday As String = ""
-            If dtSchReconcile.Text <> " " Then
+            If dtActual.Text <> " " Then
                 aday = dtActual.Value.ToString("MM/dd/yyyy")
             End If
-            If aday = "" Then
-                msg = msg & "The actual reconcile date is blank. Please fill in the date." & Environment.NewLine
+            'If aday = "" Then
+            '    msg = msg & "The sheet reconcile date is blank. Please fill in the date." & Environment.NewLine
+            'End If
+
+            Dim dday As String = ""
+            If dtDarwin.Text <> " " Then
+                dday = dtDarwin.Value.ToString("MM/dd/yyyy")
             End If
+            'If dday = "" Then
+            '    msg = msg & "The darwin reconcile date is blank. Please fill in the date." & Environment.NewLine
+            'End If
 
             Dim lasttxt As String = frmMain.lvwReminder.SelectedItems(0).SubItems(11).Text
             Dim numtxts As String = frmMain.lvwReminder.SelectedItems(0).SubItems(12).Text
@@ -138,7 +158,7 @@
             If msg = "" Then
 
                 'Add this to the Outcomes DB table
-                InsertInOutcomesTable(ID, language, fname, lname, group, mnum, sday, "", "", lasttxt, numtxts, aday, EventHappened, "", "", "", "", "Outcome created w/o SMS reminder", "", "", Clinic, "", MRN, Shift)
+                InsertInOutcomesTable(ID, language, fname, lname, group, mnum, sday, "", "", lasttxt, numtxts, aday, EventHappened, "", "", "", "", "Outcome created w/o SMS reminder", "", "", Clinic, "", MRN, Shift, dday)
 
 
                 'Update outcomes list
@@ -174,6 +194,8 @@
         txtMobile.ResetText()
         dtSchReconcile.CustomFormat = " "
         dtSchReconcile.Format = DateTimePickerFormat.Custom
+        dtDarwin.CustomFormat = " "
+        dtDarwin.Format = DateTimePickerFormat.Custom
         txtMRN.ResetText()
         cboShift.Text = ""
         cboShift.SelectedIndex = -1
@@ -189,4 +211,6 @@
         Me.Close()
 
     End Sub
+
+
 End Class

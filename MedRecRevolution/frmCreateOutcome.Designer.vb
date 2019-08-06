@@ -46,6 +46,8 @@ Partial Class frmCreateOutcome
         Me.cboShift = New System.Windows.Forms.ComboBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.dtActual = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.dtDarwin = New System.Windows.Forms.DateTimePicker()
         Me.SuspendLayout()
         '
         'Label4
@@ -237,9 +239,9 @@ Partial Class frmCreateOutcome
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(172, 69)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(114, 13)
+        Me.Label3.Size = New System.Drawing.Size(112, 13)
         Me.Label3.TabIndex = 75
-        Me.Label3.Text = "Actual Reconcile Date"
+        Me.Label3.Text = "Sheet Reconcile Date"
         '
         'dtActual
         '
@@ -249,11 +251,30 @@ Partial Class frmCreateOutcome
         Me.dtActual.Size = New System.Drawing.Size(123, 20)
         Me.dtActual.TabIndex = 74
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(326, 69)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(117, 13)
+        Me.Label5.TabIndex = 77
+        Me.Label5.Text = "Darwin Reconcile Date"
+        '
+        'dtDarwin
+        '
+        Me.dtDarwin.Format = System.Windows.Forms.DateTimePickerFormat.[Short]
+        Me.dtDarwin.Location = New System.Drawing.Point(329, 85)
+        Me.dtDarwin.Name = "dtDarwin"
+        Me.dtDarwin.Size = New System.Drawing.Size(123, 20)
+        Me.dtDarwin.TabIndex = 76
+        '
         'frmCreateOutcome
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(980, 113)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.dtDarwin)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.dtActual)
         Me.Controls.Add(Me.Label2)
@@ -309,4 +330,6 @@ Partial Class frmCreateOutcome
     Friend WithEvents cboShift As ComboBox
     Public WithEvents Label3 As Label
     Friend WithEvents dtActual As DateTimePicker
+    Public WithEvents Label5 As Label
+    Friend WithEvents dtDarwin As DateTimePicker
 End Class
