@@ -78,8 +78,9 @@ Public Class frmMain
         '*
         '*************************************************************************************************
         Dim SoftwareVersion As String
-        SoftwareVersion = "EDITOR"
-        'SoftwareVersion = "SERVER"
+        'SoftwareVersion = "EDITOR"
+        SoftwareVersion = "SERVER"
+        ' This is the correct version -rsanders 21Aug2019
         lblVersion.Text = SoftwareVersion & " VERSION 3.14  Build Date: 2 Apr 2019"
 
         '3.1 added darwin date, added date filtering, added group 0 identify
